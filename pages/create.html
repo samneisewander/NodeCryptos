@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>replit</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/pages/create.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <header>
@@ -56,6 +56,7 @@
         <div class="color"></div>
       </section>
       <section class="sideBar">
+        <button class="button" onclick="submit()">Submit</button>
         <div class="button" id="save">Save Data</div>
         <div class="button" id="load">Load Data</div>
         <div class="button" id="saveimage">Save Raster</div>
@@ -77,13 +78,14 @@
         <li>mouth is about 3px</li>
         <li><a href="https://www.larvalabs.com/cryptopunks/attributes">All CryptoPunk Types and Attributes</a></li>
       </ul>
-      <img class="examplePunk" src="demopunk.png" alt="Punk 4143" tooltip="Punk 4143" width=300>
-      <img class="examplePunk" src="demopunk2.png" alt="Punk Anon" width=300>
+      <img src="/lib/demopunk.png" class="examplePunk" alt="Punk 4143" tooltip="Punk 4143" width=300>
+      <img src="/lib/demopunk2.png" class="examplePunk" alt="Punk Anon" width=300>
     </section>
     <br>
     <br>
     <iframe width="768" height="432" src="https://www.youtube.com/embed/-YGNtNlY1xs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="/scripts/create.js"></script>
     <br>
     <div id="output"></div>
   </body>

@@ -1,11 +1,5 @@
-let cryptos
-
-$.get('/image/?src=pixel logo.svg', (data) => {
-  $('logo').css("background-image", "url('data:image/jpeg;base64," + data + "')")
-})
-
 $.get('/cryptos', (data) => {
-  cryptos = JSON.parse(data)
+  let cryptos = JSON.parse(data)
   for (i in cryptos) {
     let j = Math.floor(Math.random() * cryptos.length)
     let item = cryptos[j]

@@ -268,3 +268,24 @@ function setColor(col){
   document.querySelector("#previewColor").style.background = col
   color = col
 }
+
+function submit(){
+  let name = prompt('Enter the name of your cryptoCOMET')
+  let artist = prompt('Enter your Name.')
+  let grade = prompt('Enter your grade. (9, 10, 11, or 12)')
+  let valid = ["9", "10", "11", "12"]
+  if(!valid.includes(grade)){
+    alert('Invalid grade. Please try again.')
+    return false
+  }
+  $.ajax ({
+    url: '/submit',
+    type: "POST",
+    data: JSON.stringify({"name": name, "artist": artist, "grade": grade, "dat": data }),
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: function(){
+        //
+    }
+  })
+}

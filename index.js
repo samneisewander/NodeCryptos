@@ -2,6 +2,7 @@ const fs = require('fs')
 const express = require('express')
 const app = require('express')()
 
+
 app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
@@ -14,6 +15,22 @@ app.get('/', (req, res) => {
 })
 
 app.get('/approve', (req, res) => {
+  const reject = () => {
+    res.setHeader('www-authenticate', 'Basic')
+    res.sendStatus(401)
+  }
+
+  const authorization = req.headers.authorization
+
+  if(!authorization) {
+    return reject()
+  }
+
+  const [username, password] = Buffer.from(authorization.replace('Basic ', ''), 'base64').toString().split(':')
+
+  if(! (username === 'sus' && password === 'amogus')) {
+    return reject()
+  }
   res.sendFile(__dirname + '/pages/approve.html')
 })
 

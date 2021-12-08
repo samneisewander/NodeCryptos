@@ -1,3 +1,4 @@
+require('dotenv').config()
 const fs = require('fs')
 const express = require('express')
 const app = require('express')()
@@ -8,7 +9,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuthStrat
 connect().catch(err => console.log(err))
 
 async function connect(){
-  await mongoose.connect('mongodb+srv://<username>:<password>@amongsus.z0fzu.mongodb.net/Amongsus?retryWrites=true&w=majority')
+  await mongoose.connect(process.env.MONGODB_URI)
   const userSchema = new mongoose.Schema({
     name: String,
     owns: Array,

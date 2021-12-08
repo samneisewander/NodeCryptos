@@ -15,30 +15,43 @@ let chue = bars[0].getContext('2d')
 let csat = bars[1].getContext('2d')
 let clight = bars[2].getContext('2d')
 
+
+//Color picker library for future use
+/*
 const pickr = Pickr.create({
   el: '.color-picker',
-  theme: 'clasic',
-
+  theme: 'classic',
+  swatches: [
+    '#FFFFFF00'
+  ],
+  showAlways: true,
+  inline: true,
   components: {
-
-      // Main components
-      preview: true,
-      opacity: true,
-      hue: true,
-
-      // Input / output Options
-      interaction: {
-          hex: true,
-          rgba: true,
-          hsla: true,
-          hsva: true,
-          cmyk: true,
-          input: true,
-          clear: true,
-          save: true
-      }
+    preview: true,
+    opacity: true,
+    hue: true,
+    interaction: {
+      hex: false,
+      rgba: false,
+      hsla: false,
+      hsva: false,
+      cmyk: false,
+      input: true,
+      clear: false,
+      save: true
+    }
   }
 })
+
+pickr.swatches = 0
+
+pickr.on('save', (e) => {
+  pickr.swatches++
+  if (pickr.swatches >= 15) {
+    pickr.removeSwatch(0)
+  }
+  pickr.addSwatch(pickr.getColor().toRGBA().toString())
+})*/
 
 for(let h = 0; h < 360; h++){
   chue.beginPath()

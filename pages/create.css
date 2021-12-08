@@ -61,3 +61,7 @@ body{
   height: 20px;
   width: 60px;
 }
+
+.pcr-button{
+  display:none;
+}

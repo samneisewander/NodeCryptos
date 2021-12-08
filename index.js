@@ -1,14 +1,39 @@
 const fs = require('fs')
 const express = require('express')
 const app = require('express')()
+const mongoose = require('mongoose')
+const passport = require('passport')
+const GoogleStrategy = require('passport-google-oauth').OAuthStrat
 
+async function connect(){
+  await mongoose.connect('mongodb+srv://Amogus:sussybaka123@susamongus.z0fzu.mongodb.net/SusAmongus?retryWrites=true&w=majority')
+  const userSchema = new mongoose.Schema({
+    name: String,
+    owns: Array,
+    author: Array
+  })
+  const cryptoSchema = new mongoose.Schema({
+    name: String,
+    artist: String,
+    grade: Number,
+    dat: Object
+  })
+  const User = mongoose.model('User', userSchema)
+  const Crypto = mongoose.model('Crypto', cryptoSchema)
+
+  const sam = new User({
+    name: "Sam Neisewander",
+    owns: [],
+    author: []
+  })
+  await sam.save()
+}
 
 app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
 
 app.use(express.json())
-
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/pages/home.html')
@@ -67,7 +92,7 @@ app.post('/approve', (req, res) => {
   }
   fs.writeFile("./lib/filter.json", JSON.stringify(req.body.data), (err) => {
     if (err) throw err
-    console.log('Submission Denied: ' + req.body.item.name)
+    if (req.body.item.name) console.log('Submission Denied: ' + req.body.item.name)
   })
   
   res.sendStatus(200)

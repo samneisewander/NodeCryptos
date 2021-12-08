@@ -15,6 +15,31 @@ let chue = bars[0].getContext('2d')
 let csat = bars[1].getContext('2d')
 let clight = bars[2].getContext('2d')
 
+const pickr = Pickr.create({
+  el: '.color-picker',
+  theme: 'clasic',
+
+  components: {
+
+      // Main components
+      preview: true,
+      opacity: true,
+      hue: true,
+
+      // Input / output Options
+      interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+      }
+  }
+})
+
 for(let h = 0; h < 360; h++){
   chue.beginPath()
   chue.rect(h*300/360,0,300/360,40)

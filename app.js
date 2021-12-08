@@ -13,13 +13,17 @@ async function connect(){
   const userSchema = new mongoose.Schema({
     name: String,
     owns: Array,
-    author: Array
+    author: Array,
+    money: Number
   })
   const cryptoSchema = new mongoose.Schema({
     name: String,
     artist: String,
     grade: Number,
-    dat: Object
+    dat: Object,
+    owner: Object,
+    value: Number,
+    events: Array
   })
   const User = mongoose.model('User', userSchema)
   const Crypto = mongoose.model('Crypto', cryptoSchema)

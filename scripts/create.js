@@ -17,7 +17,7 @@ let clight = bars[2].getContext('2d')
 
 
 //Color picker library for future use
-/*
+
 const pickr = Pickr.create({
   el: '.color-picker',
   theme: 'classic',
@@ -51,7 +51,7 @@ pickr.on('save', (e) => {
     pickr.removeSwatch(0)
   }
   pickr.addSwatch(pickr.getColor().toRGBA().toString())
-})*/
+})
 
 for(let h = 0; h < 360; h++){
   chue.beginPath()

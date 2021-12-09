@@ -1,13 +1,16 @@
+//Modules
 require('dotenv').config()
 const fs = require('fs')
 const express = require('express')
-const app = require('express')()
 const mongoose = require('mongoose')
-const passport = require('passport')
-const GoogleStrategy = require('passport-google-oauth').OAuthStrat
+const session = require('express-session')
 
+//Init Application / Set Session Store
+const MongoStore = require('connect-mongo')
+const app = require('express')()
+
+//Connect to MongoDB
 connect().catch(err => console.log(err))
-
 async function connect(){
   await mongoose.connect(process.env.MONGODB_URI)
   const userSchema = new mongoose.Schema({
@@ -29,12 +32,26 @@ async function connect(){
   const Crypto = mongoose.model('Crypto', cryptoSchema)
 }
 
+//Middleware
 app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
-
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(session({
+  //https://www.npmjs.com/package/express-session
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    client: connect(),
+    
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 //1 day
+  }
+}))
 
+//Routes
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/pages/home.html')
 })
@@ -98,4 +115,5 @@ app.post('/approve', (req, res) => {
   res.sendStatus(200)
 })
 
+//Listen
 app.listen(3000)

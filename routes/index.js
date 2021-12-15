@@ -1,3 +1,4 @@
+const path = require('path')
 const router = require('express').Router()
 const passport = require('passport')
 const genPassword = require('../lib/passwordUtils').genPassword
@@ -15,20 +16,17 @@ router.post('/register', (req, res) => {
         hash: saltHash.hash,
         salt: saltHash.salt
     })
-    newUser.save()
-        .then((user) => {
-            console.log(user)
-        })
+    newUser.save().then(user => {console.log(user)})
     res.redirect('/login')
 })
 
 //Routes
-router.get('/login', (req, res) => {
-    res.sendFile('')
+router.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, '../pages/register_temp.html'))
 })
 
 router.get('/', (req, res) => {
-    res.sendFile(__dirname + '/pages/home.html')
+    res.sendFile(path.join(__dirname, '../pages/home.html'))
 })
 
 module.exports = router

@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 
 require('dotenv').config()
 
+//db not working lolz
+
 const connection = mongoose.createConnection(process.env.MONGODB_URI, {
     //read wtf this does lol
     useNewUrlParser: true,

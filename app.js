@@ -11,14 +11,11 @@ const passport = require('passport')
 const MongoStore = require('connect-mongo')
 const app = require('express')()
 
-//Routes
-const routes = require('./routes/index.js')
-app.use(routes)
-
 //Middleware
 app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
+app.use('/images', express.static('images'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
@@ -40,6 +37,10 @@ app.use(session({
 require('./config/passport')
 app.use(passport.initialize())
 app.use(passport.session())
+
+//Routes
+const routes = require('./routes/index.js')
+app.use(routes)
 
 //Listen
 app.listen(3000)

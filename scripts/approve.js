@@ -55,10 +55,7 @@ $.get('/filter', (data) => {
         type: "POST",
         data: JSON.stringify({ data: cryptos, approved: false, item: (cryptos.splice(i, 1))[0] }),
         dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function() {
-          //
-        }
+        contentType: "application/json; charset=utf-8"
       })
       removeAllChildNodes(newDiv)
       removeAllChildNodes(newOne)

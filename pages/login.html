@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CryptoComets</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1 id="pageTitle"><a href="https://cryptocomets.sambone.repl.co">CryptoComets</a></h1>
+    <form id="credScreen">
+      <div class="credTab">Sign In</div>
+      <div class="credTab currentTab">New Account</div>
+      <div class="spacer"></div>
+      <div class="fieldTitle"><span>Username</span></div>
+      <input type="text" name="" class="credField" id="unField" placeholder="Choose a username">
+      <div class="fieldTitle"><span>Password</span></div>
+      <input type="password" name="" class="credField" id="pwField" placeholder="Choose a password">
+      <div class="fieldTitle regOnly"><span>Confirm Password</span></div>
+      <input type="password" name="" class="credField regOnly" id="pwField2" placeholder="Re-type your password" autocomplete="new-password">
+      <div id="message">Username already in use.</div>
+      <input id="submit" type="button" value="Submit">
+    </form>
+    <canvas id="bkg" width="300" height="300"></canvas>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+header{
+    display: flex;
+    justify-content: center;
+}
+
+header div{
+    padding: 10px;
+    width: auto;
+    height: 10%;
+    color: white;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+header div:hover{
+    cursor: pointer;
+    transition: .5s;
+    background-color: rgb(104, 104, 104);
+}
+
+#ctab{
+    border-bottom: 2px solid rgb(0, 119, 255);
+}
+
+#utab{
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+}
+
+#users{
+    display: none;
+}
+
+body{
+  text-align: center;
+  background: #ddd;
+}
+#logo{
+  width: 200px;
+}
+h1{
+  font-size: 3rem;
+  font-family: 'Press Start 2P', cursive;
+}
+
+div div:first-of-type{
+  font-size: 1.15rem;
+}
+
+.blank{
+  display: none;
+}

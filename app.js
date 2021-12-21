@@ -16,8 +16,8 @@ app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
 app.use('/images', express.static('images'))
-app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(session({
   //https://www.npmjs.com/package/express-session
   secret: 'keyboard cat',
@@ -29,7 +29,7 @@ app.use(session({
     autoRemove: 'native'
   }),
   cookie: { 
-    maxAge: 1000 * 60,
+    maxAge: 1000 * 60 * 60
   }
 }))
 

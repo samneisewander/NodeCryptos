@@ -2,27 +2,29 @@ const mongoose = require('mongoose')
 
 require('dotenv').config()
 
-//db not working lolz
-
-const connection = mongoose.createConnection(process.env.MONGODB_URI, {
-    //read wtf this does lol
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGODB_URI)
+    .then((conn, err) =>{
+        if (err) console.log('[mongoose] Connection failure.', err)
+        else console.log('[mongoose] Connection successful!')
+    })
 
 const userSchema = new mongoose.Schema({
-    id: String,
-    username: String,
+    approved: Boolean,
+    admin: Boolean,
+    created: String,
     hash: String,
-    salt: String
-    // owns: Array,
-    // author: Array,
-    // money: Number
+    salt: String,
+    username: String,
+    grade: String,
+    owner: Array,
+    artist: Array,
+    money: Number
 })
 const cryptoSchema = new mongoose.Schema({
+    approved: Boolean,
     name: String,
     artist: String,
-    grade: Number,
+    grade: String,
     dat: Object,
     owner: Object,
     value: Number,
@@ -32,4 +34,4 @@ const cryptoSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema)
 const Crypto = mongoose.model('Crypto', cryptoSchema)
 
-module.exports = connection
+module.exports = mongoose.connection

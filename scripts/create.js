@@ -17,7 +17,7 @@ let clight = bars[2].getContext('2d')
 
 
 //Color picker library for future use
-
+/*
 const pickr = Pickr.create({
   el: '.color-picker',
   theme: 'classic',
@@ -51,7 +51,7 @@ pickr.on('save', (e) => {
     pickr.removeSwatch(0)
   }
   pickr.addSwatch(pickr.getColor().toRGBA().toString())
-})
+})*/
 
 for(let h = 0; h < 360; h++){
   chue.beginPath()
@@ -309,21 +309,11 @@ function setColor(col){
 
 function submit(){
   let name = prompt('Enter the name of your cryptoCOMET')
-  let artist = prompt('Enter your Name.')
-  let grade = prompt('Enter your grade. (9, 10, 11, or 12)')
-  let valid = ["9", "10", "11", "12"]
-  if(!valid.includes(grade)){
-    alert('Invalid grade. Please try again.')
-    return false
-  }
   $.ajax ({
     url: '/submit',
     type: "POST",
-    data: JSON.stringify({"name": name, "artist": artist, "grade": grade, "dat": data }),
+    data: JSON.stringify({"name": name, "dat": data }),
     dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    success: function(){
-        //
-    }
+    contentType: "application/json; charset=utf-8"
   })
 }

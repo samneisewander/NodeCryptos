@@ -1,5 +1,4 @@
-$.get('/cryptos', (data) => {
-  let cryptos = JSON.parse(data)
+$.get('/cryptos', cryptos => {
   for (i in cryptos) {
     let j = Math.floor(Math.random() * cryptos.length)
     let item = cryptos[j]
@@ -29,7 +28,7 @@ $.get('/cryptos', (data) => {
     newDiv.appendChild(newGrade)
     newName.innerHTML = cryptos[i].name
     newArtist.innerHTML = cryptos[i].artist
-    newGrade.innerHTML = "grade: " + cryptos[i].grade
+    newGrade.innerHTML = "Grade: " + cryptos[i].grade
     newDiv.style.display = "inline-block"
     newDiv.style.margin = "25px"
   }

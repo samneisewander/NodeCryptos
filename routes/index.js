@@ -101,6 +101,7 @@ router.post('/submit', (req, res) => {
         approved: false,
         name: req.body.name,
         artist: req.user.username,
+        artistId: req.user._id,
         grade: req.user.grade,
         dat: req.body.dat,
         owner: null,

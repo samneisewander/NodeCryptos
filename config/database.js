@@ -24,6 +24,7 @@ const cryptoSchema = new mongoose.Schema({
     approved: Boolean,
     name: String,
     artist: String,
+    artistId: String,
     grade: String,
     dat: Object,
     owner: Object,

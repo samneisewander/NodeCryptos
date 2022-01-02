@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @font-face {
     font-family: minecraft;
-    src:url("../images/1_Minecraft-Regular.otf");
+    src:url("../assets/1_Minecraft-Regular.otf");
 }
 body{
   width: 100%;

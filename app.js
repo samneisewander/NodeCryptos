@@ -15,7 +15,7 @@ app.use(express.json())
 app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
-app.use('/images', express.static('images'))
+app.use('/assets', express.static('assets'))
 app.use(session({
   //https://www.npmjs.com/package/express-session
   secret: process.env.SECRET,

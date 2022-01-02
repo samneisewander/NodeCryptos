@@ -36,7 +36,7 @@ const cryptoSchema = new mongoose.Schema({
     eventsOld: Array
 })
 
-const User = mongoose.model('User', userSchema)
-const Crypto = mongoose.model('Crypto', cryptoSchema)
+mongoose.model('User', userSchema)
+mongoose.model('Crypto', cryptoSchema)
 
 module.exports = mongoose.connection

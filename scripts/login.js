@@ -1,3 +1,53 @@
+/*TODO
+    - Change load tab to be sign in
+    - Finish config for flash message on bad login
+    - Delete all test accounts and set up an admin with a better password.
+    - Delete console logs on sign up and login
+*/
+
+const urlParams = new URLSearchParams(window.location.search)
+let skipAnimation = false
+if (urlParams.get('err')) {
+    skipAnimation = true
+    switch (urlParams.get('err')){
+        case 'bad-password':
+            $('#message').html('Your password is incorrect.')
+            break     
+        case 'no-user':
+            $('#message').html('An account with that username does not exist.')
+            break  
+        case 'not-approved':
+            $('#message').html('Your account is pending approval. Please try again later.')
+            break 
+        default:
+            $('#message').html('Something went wrong.')
+            break
+    }
+}
+
+let tabs = document.querySelectorAll(".credTab")
+let labels = document.querySelectorAll(".fieldTitle")
+let fields = document.querySelectorAll(".credField")
+tabs.forEach((thing, i) => {
+    if (i == 0) {
+        tabs[1].classList.remove("currentTab")
+        tabs[1].style.background = "#444"
+        tabs[1].style.color = "#ddd"
+        thing.classList.add("currentTab")
+        thing.style.color = "#444"
+        fields[3].disabled = "true"
+        labels[3].disabled = "true"
+        fields[3].style.display = "none"
+        labels[3].style.display = "none"
+        fields[1].disabled = "true"
+        labels[1].disabled = "true"
+        fields[1].style.display = "none"
+        labels[1].style.display = "none"
+        $("#credScreen").attr("action", "/login")
+        $("#credScreen").attr("onsubmit", "")
+    }
+})
+
 let bkg = document.querySelector("#bkg")
 let cb = bkg.getContext("2d")
 window.onload = () => {
@@ -96,29 +146,28 @@ window.onload = () => {
 
     requestAnimationFrame(main)
 
-    const pageTitle = document.querySelector("h1")
-    pageTitle.style.opacity = 0
+    if (!skipAnimation){
+        const pageTitle = document.querySelector("h1")
+        pageTitle.style.opacity = 0
 
-    const square = document.querySelector('#credScreen');
-    square.style.marginTop = "80px"
-    square.style.opacity = 0
+        const square = document.querySelector('#credScreen');
+        square.style.marginTop = "80px"
+        square.style.opacity = 0
 
-    setTimeout(() => {
-        pageTitle.style.transition = ".75s ease-out";
-        square.style.transition = "1.5s ease-out";
-    }, 50)
-
-    setTimeout(() => {
-        pageTitle.style.opacity = 1
         setTimeout(() => {
-            square.style.opacity = 1
-            square.style.marginTop = "0px"
-        }, 600)
-    }, 500)
+            pageTitle.style.transition = ".75s ease-out";
+            square.style.transition = "1.5s ease-out";
+        }, 50)
 
+        setTimeout(() => {
+            pageTitle.style.opacity = 1
+            setTimeout(() => {
+                square.style.opacity = 1
+                square.style.marginTop = "0px"
+            }, 600)
+        }, 500)
+    }
 
-    let labels = document.querySelectorAll(".fieldTitle")
-    let fields = document.querySelectorAll(".credField")
     fields.forEach((item, i) => {
         item.onfocus = (e) => {
             labels[i].style.fontSize = "1.08rem"
@@ -132,8 +181,6 @@ window.onload = () => {
 
     let clickX = 0
     let clickY = 0
-    let ct = document.querySelector(".currentTab")
-    let tabs = document.querySelectorAll(".credTab")
     tabs.forEach((thing, i) => {
         thing.onclick = (e) => {
             if (thing.classList.contains("currentTab")) {
@@ -145,10 +192,17 @@ window.onload = () => {
                     tabs[1].style.color = "#ddd"
                     thing.classList.add("currentTab")
                     thing.style.color = "#444"
-                    fields[2].disabled = "true"
-                    labels[2].disabled = "true"
-                    fields[2].style.opacity = 0
-                    labels[2].style.opacity = 0
+                    fields[3].disabled = "true"
+                    labels[3].disabled = "true"
+                    fields[3].style.display = "none"
+                    labels[3].style.display = "none"
+                    fields[1].disabled = "true"
+                    labels[1].disabled = "true"
+                    fields[1].style.display = "none"
+                    labels[1].style.display = "none"
+                    $("#credScreen").attr("action", "/login")
+                    $("#credScreen").attr("onsubmit", "")
+                    $("#message").html('')
                 }
                 else {
                     tabs[0].classList.remove("currentTab")
@@ -156,10 +210,17 @@ window.onload = () => {
                     tabs[0].style.color = "#ddd"
                     thing.classList.add("currentTab")
                     thing.style.color = "#444"
-                    fields[2].removeAttribute("disabled")
-                    labels[2].removeAttribute("disabled")
-                    fields[2].style.opacity = 1
-                    labels[2].style.opacity = 1
+                    fields[3].removeAttribute("disabled")
+                    labels[3].removeAttribute("disabled")
+                    fields[3].style.display = "block"
+                    labels[3].style.display = "block"
+                    fields[1].removeAttribute("disabled")
+                    labels[1].removeAttribute("disabled")
+                    fields[1].style.display = "block"
+                    labels[1].style.display = "block"
+                    $("#credScreen").attr("action", "/register")
+                    $("#credScreen").attr("onsubmit", "return validate()")
+                    $("#message").html('')
                 }
                 clickX = e.pageX - e.target.offsetLeft
                 clickY = e.pageY - e.target.offsetTop
@@ -172,9 +233,45 @@ window.onload = () => {
 
     function popGrad(thing, rad) {
         thing.style.background = "radial-gradient( circle at " + clickX + "px " + clickY + "px,#ddd 0%,#ddd " + rad + "%,#444 " + (rad + .5) + "%, #444 101%)"
-        console.log(rad)
+        //console.log(rad)
         if (rad < 99.9) setTimeout(function () { popGrad(thing, rad * (1 + (100 - rad) / 400)) }, 1)
-        else console.log(rad, "break")
+        //else console.log(rad, "break")
     }
+
+}
+
+function validate() {
+    let valid = false
+    let messageDiv = document.getElementById('message')
+    let form = document.forms.credScreen
+    if (form.username.value == '' || form.username.value.length > 18) {
+        messageDiv.innerHTML = 'Username must be between 1 and 18 characters.'
+        return false
+    }
+    if (form.password.value.length < 8 || form.password.value.length > 50 || !(/\d/).test(form.password.value) || !(/[a-zA-Z]/).test(form.password.value)) {
+        messageDiv.innerHTML = 'Password must be at least 8 characters and must include a number and a letter.'
+        return false
+    }
+    if (form.password.value !== form.password2.value) {
+        messageDiv.innerHTML = 'The passwords do not match.'
+        return false
+    }
+    //if the username is taken, reject
+    $.ajax({
+        url: '/username',
+        type: "POST",
+        data: JSON.stringify({ username: form.username.value }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8"
+    }).then(valid => {
+        if (valid == false) {
+            messageDiv.innerHTML = 'That username is taken.'
+            return //this returns false for the NESTED FUNCTION, not the parent. we use a simple flag to work around this.
+        }
+        //all checks passed.
+        valid = true
+    }).then(() => {
+        return valid
+    })
 
 }

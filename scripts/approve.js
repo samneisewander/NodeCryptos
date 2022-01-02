@@ -3,10 +3,12 @@ let usersDiv = document.getElementById('users')
 let cryptotab = document.getElementById('ctab')
 let usertab = document.getElementById('utab')
 
-//TODO: req body empty. Switch to AJAX?
-
-
-$.get('/filter/cryptos', cryptos => {
+$.ajax({
+  url: '/filter',
+  type: 'post',
+  data: JSON.stringify({ type: 'crypto' }),
+  contentType: 'application/json'
+}).then(cryptos => {
   for (let crypto of cryptos) {
     let newOne = document.createElement("canvas")
     let newCtx = newOne.getContext('2d')
@@ -42,9 +44,9 @@ $.get('/filter/cryptos', cryptos => {
 
     newApprove.onclick = () => {
       $.ajax({
-        url: '/approve/crypto',
+        url: '/approve',
         type: "POST",
-        data: JSON.stringify({ crypto: crypto, approved: true }),
+        data: JSON.stringify({ type: 'crypto', crypto: crypto, approved: true }),
         dataType: "json",
         contentType: "application/json; charset=utf-8"
       })
@@ -53,9 +55,9 @@ $.get('/filter/cryptos', cryptos => {
     }
     newDeny.onclick = () => {
       $.ajax({
-        url: '/approve/crypto',
+        url: '/approve',
         type: "POST",
-        data: JSON.stringify({ crypto: crypto, approved: false }),
+        data: JSON.stringify({ type: 'crypto', crypto: crypto, approved: false }),
         dataType: "json",
         contentType: "application/json; charset=utf-8"
       })
@@ -65,7 +67,12 @@ $.get('/filter/cryptos', cryptos => {
   }
 })
 
-$.get('/filter/users', users => {
+$.ajax({
+  url: '/filter',
+  type: 'post',
+  data: JSON.stringify({ type: 'user' }),
+  contentType: 'application/json'
+}).then(users => {
   for (let user of users) {
     let newDiv = document.createElement("div")
     let newName = document.createElement("div")
@@ -86,9 +93,9 @@ $.get('/filter/users', users => {
 
     newApprove.onclick = () => {
       $.ajax({
-        url: '/approve/user',
+        url: '/approve',
         type: "POST",
-        data: JSON.stringify({ user: user, approved: true }),
+        data: JSON.stringify({ type: 'user', user: user, approved: true }),
         dataType: "json",
         contentType: "application/json; charset=utf-8"
       })
@@ -96,9 +103,9 @@ $.get('/filter/users', users => {
     }
     newDeny.onclick = () => {
       $.ajax({
-        url: '/approve/user',
+        url: '/approve',
         type: "POST",
-        data: JSON.stringify({ user: user, approved: false }),
+        data: JSON.stringify({ type: 'user', user: user, approved: false }),
         dataType: "json",
         contentType: "application/json; charset=utf-8"
       })

@@ -1,26 +1,24 @@
 //Modules
 require('dotenv').config()
-const fs = require('fs')
 const express = require('express')
-const mongoose = require('mongoose')
 const session = require('express-session')
-const crypto = require('crypto')
 const passport = require('passport')
+const flash = require('connect-flash')
 
 //Init Application / Set Session Store
 const MongoStore = require('connect-mongo')
 const app = require('express')()
 
 //Middleware
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use('/lib', express.static('lib'))
 app.use('/scripts', express.static('scripts'))
 app.use('/pages', express.static('pages'))
 app.use('/images', express.static('images'))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
 app.use(session({
   //https://www.npmjs.com/package/express-session
-  secret: 'keyboard cat',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
@@ -32,6 +30,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60
   }
 }))
+app.use(flash())
 
 //Passport
 require('./config/passport')

@@ -16,20 +16,24 @@ const userSchema = new mongoose.Schema({
     salt: String,
     username: String,
     grade: String,
-    owner: Array,
-    artist: Array,
-    money: Number
+    owner: Array, //list of nfts this person owns
+    artist: Array, //list of nfts this person has made
+    money: Number,
+    offersIn: Array, //pending offers made on items this person owns
+    offersOut: Array, //pending offers this person has made
+    offersOld: Array
 })
 const cryptoSchema = new mongoose.Schema({
     approved: Boolean,
     name: String,
     artist: String,
-    artistId: String,
+    artistId: String, //we dont technically need this. usernames are unique, so the artist name is enough for a query.
     grade: String,
     dat: Object,
-    owner: Object,
+    owner: String,
     value: Number,
-    events: Array
+    events: Array,
+    eventsOld: Array
 })
 
 const User = mongoose.model('User', userSchema)

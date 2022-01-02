@@ -5,23 +5,36 @@
     <meta name="viewport" content="width=device-width">
     <title>CryptoComets</title>
     <link href="/pages/login.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
   </head>
   <body>
     <h1 id="pageTitle"><a href="https://cryptocomets.sambone.repl.co">CryptoComets</a></h1>
     <!-- There need to be 2 forms: the login form which uses action="/login" with method="post", and another for registration which uses action="/register" with method="post"-->
 
-    <form id="credScreen" action="/register" method="post">
-      <div class="credTab">Sign In</div>
-      <div class="credTab currentTab">New Account</div>
+    <form id="credScreen" action="/register" method="post" autocomplete="off" onsubmit="return validate()">
+      <div class="credTab currentTab">Sign In</div>
+      <div class="credTab">New Account</div>
       <div class="spacer"></div>
+
       <div class="fieldTitle"><span>Username</span></div>
       <input type="text" name="username" class="credField" id="unField" placeholder="Choose a username">
+
+      <div class="fieldTitle"><span>Grade</span></div>
+      <select name="grade" class="credField" id="grdField" placeholder="Choose a grade">
+        <option value="Freshman">Freshman</option>
+        <option value="Sophmore">Sophmore</option>
+        <option value="Junior">Junior</option>
+        <option value="Senior">Senior</option>
+      </select>
+
       <div class="fieldTitle"><span>Password</span></div>
-      <input type="password" name="password" class="credField" id="pwField" placeholder="Choose a password">
+      <input type="password" name="password" class="credField" id="pwField" placeholder="Choose a password" autocomplete="new-password">
+
       <div class="fieldTitle regOnly"><span>Confirm Password</span></div>
-      <input type="password" name="password2" class="credField regOnly" id="pwField2" placeholder="Re-type your password" autocomplete="new-password">
-      <div id="message">Username already in use.</div>
-      <input id="submit" type="button" value="Submit">
+      <input type="password" name="password2" class="credField regOnly" id="pwField2" placeholder="Re-type your password">
+
+      <div id="message"></div>
+      <input id="submit" type="submit" value="Submit">
     </form>
     <canvas id="bkg" width="300" height="300"></canvas>
     <script src="/scripts/login.js"></script>

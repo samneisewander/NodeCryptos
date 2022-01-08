@@ -199,7 +199,7 @@ router.post('/approve', protect, (req, res) => {
     }
 })
 
-router.post('/offer', protect, (req, res) => {
+router.post('/offer', protect, (req, res) => { 
     class Offer{
         constructor(buyer, seller, amount, item){
             this.buyer = buyer

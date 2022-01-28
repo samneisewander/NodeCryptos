@@ -1,4 +1,4 @@
-$.get('/cryptos', cryptos => {
+/*$.get('/cryptos', cryptos => {
   for (i in cryptos) {
     let j = Math.floor(Math.random() * cryptos.length)
     let item = cryptos[j]
@@ -33,4 +33,4 @@ $.get('/cryptos', cryptos => {
     newDiv.style.margin = "25px"
   }
 })
-
+*/

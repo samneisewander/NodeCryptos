@@ -12,7 +12,6 @@ $.get('/user-obj', user => {
 
 $.get('/cryptos', cryptos => {
   for (let crypto of cryptos){
-    console.log(crypto)
     let tile = document.createElement('div')
     tile.classList = 'tile'
 
@@ -32,8 +31,18 @@ $.get('/cryptos', cryptos => {
 
     let name = document.createElement('div')
     name.classList = 'tile-field'
-    name.innerHTML = crypto.name
+    name.innerHTML = crypto.name ? crypto.name : 'Untitled'
     tile.appendChild(name)
+
+    let ownerLabel = document.createElement('div')
+    ownerLabel.classList = 'tile-label'
+    ownerLabel.innerHTML = 'OWNER:'
+    tile.appendChild(ownerLabel)
+
+    let owner = document.createElement('div')
+    owner.classList = 'tile-field'
+    owner.innerHTML = crypto.owner ? crypto.owner : 'None'
+    tile.appendChild(owner)
 
     let artistLabel = document.createElement('div')
     artistLabel.classList = 'tile-label'

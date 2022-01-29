@@ -7,13 +7,17 @@ const connection = require('../config/database')
 const User = connection.models.User
 const Crypto = connection.models.Crypto
 
+let debug = false; //weird res header duplicate bug. dunno where its comming from but it happens on homepage redirect to login
+
 //GET Routes (unprotected)
 
 router.get('/register', (req, res) => {
+    if (debug) console.log('get/register')
     res.sendFile(path.join(__dirname, '../pages/register_temp.html'))
 })
 
 router.get('/login', (req, res) => {
+    if (debug) console.log('get/login')
     let err = req.flash().error
     try {
         if (err) res.redirect('/login?err=' + err[0])
@@ -23,6 +27,7 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/cryptos', (req, res) => {
+    if (debug) console.log('get/cryptos')
     Crypto.find({ approved: true }, (err, results) => {
         if (err) res.sendStatus(500)
         res.send(results)
@@ -30,22 +35,26 @@ router.get('/cryptos', (req, res) => {
 })
 
 router.get('/user-obj', (req, res) => {
+    if (debug) console.log('get/user-obj')
     if (req.user) res.send(req.user)
     else res.send('nopers no elpers')
 })
 
 //GET Routes (protected)
 router.get('/approve', protect, (req, res) => {
+    if (debug) console.log('get/approve')
     if (req.user.admin) res.sendFile(path.join(__dirname, '../pages/approve.html'))
     else res.sendStatus(403)
 
 })
 
 router.get('/create', protect, (req, res) => {
+    if (debug) console.log('get/create')
     res.sendFile(path.join(__dirname, '../pages/create.html'))
 })
 
 router.get('/', protect, (req, res) => {
+    if (debug) console.log('get/')
     res.sendFile(path.join(__dirname, '../pages/home.html'))
 })
 
@@ -53,6 +62,7 @@ router.get('/', protect, (req, res) => {
 router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true }))
 
 router.post('/register', (req, res) => {
+    if (debug) console.log('post/register')
     //Redundant info eval just in case someone (colin) fucks with the clientside code
     if (req.body.username == '' || req.body.username.length > 18) return
     if (req.body.password.length < 8 || req.body.password.length > 50 || !(/\d/).test(req.body.password) || !(/[a-zA-Z]/).test(req.body.password)) return
@@ -78,6 +88,7 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/username', (req, res) => {
+    if (debug) console.log('post/username')
     User.findOne({ username: req.body.username })
         .then((result) => {
             if (result) res.send(false)
@@ -88,6 +99,7 @@ router.post('/username', (req, res) => {
 
 //POST Routes (protected)
 router.post('/submit', protect, (req, res) => {
+    if (debug) console.log('post/submit')
     const newCrypto = new Crypto({
         approved: false,
         name: req.body.name,
@@ -114,6 +126,7 @@ router.post('/submit', protect, (req, res) => {
 })
 
 router.post('/filter', protect, (req, res) => {
+    if (debug) console.log('post/filter')
     switch (req.body.type) {
         case 'crypto':
             Crypto.find({ approved: false }, (err, results) => {
@@ -131,32 +144,29 @@ router.post('/filter', protect, (req, res) => {
 })
 
 router.post('/approve', protect, (req, res) => {
+    if (debug) console.log('post/approve')
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
                 User.count().exec(function (err, count) {
                     User.findOne().skip(Math.floor(Math.random() * count)).exec(
                         function (err, result) {
-                            // result is random 
-
-                            Crypto.findOneAndUpdate({
+                            // result is a random user document (i hope)
+                            Crypto.findOne({
                                 approved: false,
                                 name: req.body.crypto.name,
                                 artist: req.body.crypto.artist,
                                 grade: req.body.crypto.grade,
                                 dat: req.body.crypto.dat
-                            },
-                                {
-                                    approved: true,
-                                    owner: result.username
-                                }, (err) => {
-                                    if (!err) {
-                                        console.log('[CRYPTO APPROVED] ' + req.body.crypto.name)
-                                        res.sendStatus(200)
-                                    }
-                                    else res.sendStatus(500)
-                                })
-                            //figure out how to push crypto id to user ownership array. Probably have to change query to findOne()
+                            }).then(crypto => {
+                                crypto.approved = true
+                                crypto.owner = result.username
+                                result.owner.push(crypto._id)
+                                crypto.save()
+                                result.save()
+                            })
+                            console.log('[CRYPTO APPROVED] ' + req.body.crypto.name, 'Awared to: ' + result.username)
+                            res.sendStatus(200)
                         })
                 })
             }
@@ -215,6 +225,7 @@ router.post('/approve', protect, (req, res) => {
 })
 
 router.post('/offer', protect, (req, res) => {
+    if (debug) console.log('post/offer')
     class Offer {
         constructor(buyer, seller, amount, item) {
             this.buyer = buyer

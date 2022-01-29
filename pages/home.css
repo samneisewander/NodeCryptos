@@ -5,7 +5,7 @@ body{
   font-family: 'Press Start 2P', cursive;
 }
 
-header{
+.header{
   background-image: url('../assets/background.png');
   background-position: center;
   background-size: cover;
@@ -18,7 +18,7 @@ header{
 #nameplate{
   margin: 100px 0px 20px 0px;
   width: 60%;
-  min-width: 1500px;
+  min-width: 1400px;
   height: auto;
   display: grid;
   grid-template: 2fr 1fr 2fr / 1fr 2fr 2fr;
@@ -26,7 +26,7 @@ header{
 
 #nameplate img{
   margin: 40px;
-  max-height: 300px;
+  max-height: 17em;
   grid-area: 1 / 1 / -1 / 2;
   border: 6px solid white; 
   border-radius: 100%;
@@ -63,7 +63,7 @@ header{
   margin: 10px 0px;
 }
 
-header button{
+.header button{
   transition: .5s;
   margin: 20px 0px;
   padding: 20px 30px;
@@ -81,22 +81,22 @@ header button{
   cursor: pointer;
 }
 
-header button:hover{
+.header button:hover{
   transition: .5s;
   background-color: #fb7390;
   color: white;
 }
-header button:hover > #pencil {
+.header button:hover > #pencil {
   transition: .5s;
   filter: brightness(500%)
 }
 
-header button img{
+.header button img{
   max-width: 100%;
   max-height: 100%;
 }
 
-header button span{
+.header button span{
   font-size: 1em;
   align-self: center;
 }
@@ -149,16 +149,40 @@ h1{
 }
 
 #marketplace .tile{
+  cursor: pointer;
   padding: 20px;
-  width: 20%;
-  min-height: 700px;
+  width: 25%;
+  min-height: 600px;
   background-color: white;
   box-shadow: 0px 0px 25px 7px rgba(0, 0, 0, 0.25);
+  transition: .5s;
+}
+
+#marketplace .tile:hover{
+  transition: .5s;
+  box-shadow: 0px 0px 25px 7px rgba(0, 0, 0, 0.4);
 }
 
 #marketplace .tile img{
   max-width: 100%;
   max-height: 100%;
+}
+
+#marketplace .tile .tile-label{
+  margin: 10px 0px 10px 0px;
+  font-size: 1em;
+}
+
+#marketplace .tile .tile-field{
+  margin: 10px 0px 10px 0px;
+  font-size: 2em;
+}
+
+#marketplace .tile .tile-divider{
+  width: 50%;
+  height: 2px;
+  background-color:rgb(116, 116, 116);
+  margin: 20px auto 20px auto;
 }
 
 footer{

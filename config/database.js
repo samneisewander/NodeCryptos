@@ -30,6 +30,7 @@ const cryptoSchema = new mongoose.Schema({
     artistId: String, //we dont technically need this. usernames are unique, so the artist name is enough for a query.
     grade: String,
     dat: Object,
+    png: String,
     owner: String,
     value: Number,
     events: Array,

@@ -1,36 +1,66 @@
-/*$.get('/cryptos', cryptos => {
-  for (i in cryptos) {
-    let j = Math.floor(Math.random() * cryptos.length)
-    let item = cryptos[j]
-    cryptos[j] = cryptos[i]
-    cryptos[i] = item
+$.get('/user-obj', user => {
+  if (user == 'nopers no elpers') {
+    //render new user homepage
+    console.log('No user!')
   }
-  for (let i = 0; i < cryptos.length; i++) {
-    let newOne = document.createElement("canvas")
-    let newCtx = newOne.getContext('2d')
-    let newDiv = document.createElement("div")
-    let newName = document.createElement("div")
-    let newArtist = document.createElement("div")
-    let newGrade = document.createElement("div")
-    document.body.appendChild(newDiv)
-    newDiv.appendChild(newOne)
-    newOne.height = 24 * 10
-    newOne.width = 24 * 10
-    for (row in cryptos[i].dat) {
-      for (col in cryptos[i].dat[row]) {
-        newCtx.beginPath()
-        newCtx.fillStyle = cryptos[i].dat[row][col] ? cryptos[i].dat[row][col] : "transparent"
-        newCtx.fillRect(row * 10, col * 10, 10, 10)
-      }
-    }
-    newDiv.appendChild(newName)
-    newDiv.appendChild(newArtist)
-    newDiv.appendChild(newGrade)
-    newName.innerHTML = cryptos[i].name
-    newArtist.innerHTML = cryptos[i].artist
-    newGrade.innerHTML = "Grade: " + cryptos[i].grade
-    newDiv.style.display = "inline-block"
-    newDiv.style.margin = "25px"
+  else{
+    document.getElementById('nameplate-welcome').innerHTML = `Welcome back, ${user.username}!`
+    document.getElementById('nameplate-balance').innerHTML = `¥${user.money}`
+    document.getElementById('nameplate-cryptos').innerHTML = user.owner.length
   }
 })
-*/
+
+$.get('/cryptos', cryptos => {
+  for (let crypto of cryptos){
+    console.log(crypto)
+    let tile = document.createElement('div')
+    tile.classList = 'tile'
+
+    let image = document.createElement('img')
+    image.classList = 'tile-image'
+    image.src = crypto.png
+    tile.appendChild(image)
+
+    let divider = document.createElement('div')
+    divider.classList = 'tile-divider'
+    tile.appendChild(divider)
+
+    let nameLabel = document.createElement('div')
+    nameLabel.classList = 'tile-label'
+    nameLabel.innerHTML = 'NAME:'
+    tile.appendChild(nameLabel)
+
+    let name = document.createElement('div')
+    name.classList = 'tile-field'
+    name.innerHTML = crypto.name
+    tile.appendChild(name)
+
+    let artistLabel = document.createElement('div')
+    artistLabel.classList = 'tile-label'
+    artistLabel.innerHTML = 'ARTIST:'
+    tile.appendChild(artistLabel)
+
+    let artist = document.createElement('div')
+    artist.classList = 'tile-field'
+    artist.innerHTML = crypto.artist
+    tile.appendChild(artist)
+
+    let valueLabel = document.createElement('div')
+    valueLabel.classList = 'tile-label'
+    valueLabel.innerHTML = 'VALUE:'
+    tile.appendChild(valueLabel)
+
+    let value = document.createElement('div')
+    value.classList = 'tile-field'
+    value.innerHTML = '¥' + crypto.value
+    tile.appendChild(value)
+
+    document.getElementById('marketplace').appendChild(tile)
+  }
+})
+
+let butt = document.getElementById('create-button')
+
+butt.onclick = function(){
+  window.location.href = "/create";
+}

@@ -8,9 +8,6 @@ const User = connection.models.User
 const Crypto = connection.models.Crypto
 
 //GET Routes (unprotected)
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../pages/home.html'))
-})
 
 router.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, '../pages/register_temp.html'))
@@ -18,7 +15,7 @@ router.get('/register', (req, res) => {
 
 router.get('/login', (req, res) => {
     let err = req.flash().error
-    try { 
+    try {
         if (err) res.redirect('/login?err=' + err[0])
         else res.sendFile(path.join(__dirname, '../pages/login.html'))
     }
@@ -32,15 +29,24 @@ router.get('/cryptos', (req, res) => {
     })
 })
 
+router.get('/user-obj', (req, res) => {
+    if (req.user) res.send(req.user)
+    else res.send('nopers no elpers')
+})
+
 //GET Routes (protected)
 router.get('/approve', protect, (req, res) => {
     if (req.user.admin) res.sendFile(path.join(__dirname, '../pages/approve.html'))
     else res.sendStatus(403)
-    
+
 })
 
 router.get('/create', protect, (req, res) => {
-    res.sendFile(path.join(__dirname, '../pages/create.html')) 
+    res.sendFile(path.join(__dirname, '../pages/create.html'))
+})
+
+router.get('/', protect, (req, res) => {
+    res.sendFile(path.join(__dirname, '../pages/home.html'))
 })
 
 //POST Routes 
@@ -82,7 +88,6 @@ router.post('/username', (req, res) => {
 
 //POST Routes (protected)
 router.post('/submit', protect, (req, res) => {
-    if (!req.isAuthenticated()) res.redirect('/login')
     const newCrypto = new Crypto({
         approved: false,
         name: req.body.name,
@@ -90,6 +95,7 @@ router.post('/submit', protect, (req, res) => {
         artistId: req.user._id,
         grade: req.user.grade,
         dat: req.body.dat,
+        png: req.body.png,
         owner: null,
         value: 0,
         events: []
@@ -128,22 +134,31 @@ router.post('/approve', protect, (req, res) => {
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
-                Crypto.findOneAndUpdate({
-                    approved: false,
-                    name: req.body.crypto.name,
-                    artist: req.body.crypto.artist,
-                    grade: req.body.crypto.grade,
-                    dat: req.body.crypto.dat
-                },
-                    {
-                        approved: true
-                    }, (err) => {
-                        if (!err) {
-                            console.log('[CRYPTO APPROVED] ' + req.body.crypto.name)
-                            res.sendStatus(200)
-                        }
-                        else res.sendStatus(500)
-                    })
+                User.count().exec(function (err, count) {
+                    User.findOne().skip(Math.floor(Math.random() * count)).exec(
+                        function (err, result) {
+                            // result is random 
+
+                            Crypto.findOneAndUpdate({
+                                approved: false,
+                                name: req.body.crypto.name,
+                                artist: req.body.crypto.artist,
+                                grade: req.body.crypto.grade,
+                                dat: req.body.crypto.dat
+                            },
+                                {
+                                    approved: true,
+                                    owner: result.username
+                                }, (err) => {
+                                    if (!err) {
+                                        console.log('[CRYPTO APPROVED] ' + req.body.crypto.name)
+                                        res.sendStatus(200)
+                                    }
+                                    else res.sendStatus(500)
+                                })
+                            //figure out how to push crypto id to user ownership array. Probably have to change query to findOne()
+                        })
+                })
             }
             else {
                 Crypto.findOneAndDelete({
@@ -199,9 +214,9 @@ router.post('/approve', protect, (req, res) => {
     }
 })
 
-router.post('/offer', protect, (req, res) => { 
-    class Offer{
-        constructor(buyer, seller, amount, item){
+router.post('/offer', protect, (req, res) => {
+    class Offer {
+        constructor(buyer, seller, amount, item) {
             this.buyer = buyer
             this.seller = seller
             this.amount = amount
@@ -209,7 +224,7 @@ router.post('/offer', protect, (req, res) => {
             this.created = Date.now()
             this.status = 'Pending'
         }
-        reject(){
+        reject() {
             User.findOne({ username: buyer.username }).then(user => {
                 user.offersOut.forEach((offer, i) => {
                     if (offer == this) offer.status = 'Rejected'
@@ -229,7 +244,7 @@ router.post('/offer', protect, (req, res) => {
                 crypto.save()
             })
         }
-        complete(){
+        complete() {
             User.findOne({ username: buyer.username }).then(user => {
                 user.offersOut.forEach((offer, i) => {
                     if (offer == this) {
@@ -264,7 +279,7 @@ router.post('/offer', protect, (req, res) => {
                 crypto.save()
             })
         }
-        delete(){
+        delete() {
             User.findOne({ username: buyer.username }).then(user => {
                 user.offersOut.forEach((offer, i) => {
                     if (offer == this) user.offersOut.splice(i, 1)

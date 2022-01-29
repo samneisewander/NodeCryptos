@@ -309,10 +309,11 @@ function setColor(col){
 
 function submit(){
   let name = prompt('Enter the name of your cryptoCOMET')
+  draw(false)
   $.ajax ({
     url: '/submit',
     type: "POST",
-    data: JSON.stringify({"name": name, "dat": data }),
+    data: JSON.stringify({"name": name, "dat": data , "png": can.toDataURL('image/png')}),
     dataType: "json",
     contentType: "application/json; charset=utf-8"
   })

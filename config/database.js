@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema({
     money: Number,
     offersIn: Array, //pending offers made on items this person owns
     offersOut: Array, //pending offers this person has made
-    offersOld: Array
+    offersOld: Array,
+    pfp: String //profile picture; base64 encoded png
 })
 const cryptoSchema = new mongoose.Schema({
     approved: Boolean,

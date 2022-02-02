@@ -7,7 +7,7 @@ const connection = require('../config/database')
 const User = connection.models.User
 const Crypto = connection.models.Crypto
 
-let debug = false; //weird res header duplicate bug. dunno where its comming from but it happens on homepage redirect to login
+let debug = false; //weird res header duplicate bug. dunno where its coming from but it happens on homepage redirect to login 
 
 //GET Routes (unprotected)
 

@@ -58,6 +58,11 @@ router.get('/', protect, (req, res) => {
     res.sendFile(path.join(__dirname, '../pages/home.html'))
 })
 
+router.get('/inspect', protect, (req, res) => {
+    if (debug) console.log('get/inspect')
+    res.sendFile(path.join(__dirname, '../pages/inspect.html'))
+})
+
 //POST Routes 
 router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true }))
 

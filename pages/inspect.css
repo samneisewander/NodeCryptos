@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body{
+  margin: 0px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#nameplate {
+  margin: 100px 0px 20px 0px;
+  width: 60%;
+  min-width: 1400px;
+  height: auto;
+  display: grid;
+  grid-template: repeat(3, 1fr 2fr) / 1fr 2fr 2fr;
+}
+
+#nameplate img {
+  margin: 40px;
+  max-height: 17em;
+  grid-area: 1 / 1 / -1 / 2;
+  border: 6px solid white;
+  border-radius: 100%;
+}

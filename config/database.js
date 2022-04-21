@@ -11,7 +11,7 @@ mongoose.connect(process.env.MONGODB_URI)
 const userSchema = new mongoose.Schema({
     approved: Boolean,
     admin: Boolean,
-    created: String,
+    created: Date, 
     hash: String,
     salt: String,
     username: String,
@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
 const cryptoSchema = new mongoose.Schema({
     approved: Boolean,
     name: String,
+    created: Date,
     artist: String,
     artistId: String, //we dont technically need this. usernames are unique, so the artist name is enough for a query.
     grade: String,

@@ -28,11 +28,11 @@ body{
 }
 
 #nameplate .label {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 #nameplate .value {
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 .header button{
@@ -58,7 +58,7 @@ body{
   background: gold;
   color: white;
 }
-.header button:hover > #pencil {
+.header button:hover > #cart {
   transition: .5s;
   filter: brightness(500%)
 }
@@ -71,4 +71,25 @@ body{
 .header button span{
   font-size: 1em;
   align-self: center;
+}
+
+.tile {
+  height: 60px;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: white;
+  display: flex;     
+  flex-direction: row;
+  align-items: center;
+  font-size: 1em;
+}
+
+.tile img{
+  margin-right: 10px;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.gray {
+  background-color: #DEDEDE;
 }

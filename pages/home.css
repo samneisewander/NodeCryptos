@@ -1,194 +1,146 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/*nothing loads lmfao*/
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Press+Start+2P&display=swap');
+/*HEADER*/
 body{
   margin: 0px;
-  font-family: 'Press Start 2P', cursive;
 }
 
-.header{
-  background-image: url('../assets/background.png');
-  background-position: center;
-  background-size: cover;
+header{
+  background-color: #333333;
+  width: auto;
+  height: fit-content;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+header #logo{
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px 10px 20px;
+  border-radius: 50px;
+  background-color: white;
+}
+
+header #logo img{
+  width: 30px;
+  height: 30px;
+}
+
+header #logo div{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10pt;
+  color: black;
+}
+
+header nav{
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+header nav a{
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12pt;
+  text-decoration: none;
+}
+
+header #profile{
+  width: 250px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+}
+
+header #profile img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+/*END_HEADER*/
+
+/*BODY*/
+#body{
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background-color: #060E23;
+  padding: 30px 0px;
+}
+
+#body #stats{
+  width: 980px;
+  height: 300px;
+  background-color: #333333;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 60px;
+}
+
+#body #stats img{
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-left: 50px;
+}
+
+#body #stats #container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#body #stats #container h1{
+  font-size: 25px;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+}
+
+#body #stats #container .stat{
+  font-size: 12pt;
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+/* END BODY */
+
+/* FOOTER */
+footer{
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 24px;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  background-color: #333333;
 }
-
-#nameplate{
-  margin: 100px 0px 20px 0px;
-  width: 60%;
-  min-width: 1400px;
-  height: auto;
-  display: grid;
-  grid-template: 2fr 1fr 2fr / 1fr 2fr 2fr;
-}
-
-#nameplate img{
-  margin: 40px;
-  max-height: 17em;
-  grid-area: 1 / 1 / -1 / 2;
-  border: 6px solid white; 
-  border-radius: 100%;
-}
-
-#nameplate-welcome{
-  grid-area: 1 / 2 / 2 / -1;
-  color: white;
-  font-size: 3em;
-  margin: 70px 0px 0px 0px;
-}
-#nameplate-balance-label{
-  grid-area: 2 / 2 / 3 / 3;
-  color: white;
-  font-size: 1.5em;
-  margin: 20px 0px;
-}
-#nameplate-balance{
-  grid-area: 3 / 2 / -1 / 3;
-  color: white;
-  font-size: 5em;
-  margin: 10px 50px 0px 0px;
-}
-#nameplate-cryptos-label{
-  grid-area: 2 / 3 / 3 / -1;
-  color: white;
-  font-size: 1.5em;
-  margin: 20px 0px;
-}
-#nameplate-cryptos{
-  grid-area: 3 / 3 / -1 / -1;
-  color: white;
-  font-size: 5em;
-  margin: 10px 0px;
-}
-
-.header button{
-  transition: .5s;
-  margin: 20px 0px;
-  padding: 20px 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 200px;
-  height: 75px;
-  border-radius: 50px;
-  border: none;
-  background-color: white;
-  color: #fb7390;
-  font: inherit;
-  box-shadow: 0px 0px 8px 8px rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-
-.header button:hover{
-  transition: .5s;
-  background-color: #fb7390;
-  color: white;
-}
-.header button:hover > #pencil {
-  transition: .5s;
-  filter: brightness(500%)
-}
-
-.header button img{
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.header button span{
-  font-size: 1em;
-  align-self: center;
-}
-
-h1{
-  width: auto;
-  text-align: center;
-  font-size: 4em;
-  margin: 100px;
-}
-
-#right-now{
-  margin: auto;
-  display: flex;
-  width: 70%;
-  flex-direction: column;
-  min-height: 800px;
-}
-
-#right-now .tile{
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-}
-
-.gray{
-  background-color: rgb(219, 219, 219);
-}
-
-#right-now .tile img {
-  border: 3px solid black; 
-  border-radius: 100%;
-  margin: 20px;
-  max-height: 80px;
-}
-
-#right-now .tile .tile-text{
-  color: black;
-  font-size: 1em;
-  align-self: center;
-}
-
-#marketplace{
-  display: flex;
-  flex-direction: row;
-  flex-flow: wrap;
-  justify-content: space-evenly;
-}
-
-#marketplace .tile{
-  margin: 20px 0px;
-  cursor: pointer;
-  padding: 20px;
-  width: 300px;
-  min-height: 600px;
-  background-color: white;
-  box-shadow: 0px 0px 25px 7px rgba(0, 0, 0, 0.25);
-  transition: .5s;
-}
-
-#marketplace .tile:hover{
-  transition: .5s;
-  box-shadow: 0px 0px 25px 7px rgba(0, 0, 0, 0.4);
-}
-
-#marketplace .tile img{
-  max-width: 100%;
-  max-height: 100%;
-}
-
-#marketplace .tile .tile-label{
-  margin: 10px 0px 10px 0px;
-  font-size: 1em;
-}
-
-#marketplace .tile .tile-field{
-  margin: 10px 0px 10px 0px;
-  font-size: 2em;
-}
-
-#marketplace .tile .tile-divider{
-  width: 50%;
-  height: 2px;
-  background-color:rgb(116, 116, 116);
-  margin: 20px auto 20px auto;
-}
-
-footer{
-  min-height: 200px;
-}
-
-.blank{
-  display: none;
+footer .footertext{
+  font-family: 'Noto Sans', sans-serif;
+  text-decoration: none;
+  font-size: 9pt;
+  color: #999999;
 }

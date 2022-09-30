@@ -123,6 +123,42 @@ header #profile img{
   font-family: 'Noto Sans', sans-serif;
 }
 
+#body #buttons{
+  width: 980px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+#body #buttons .tile{
+  width: 300px;
+  height: 65px;
+  border-radius: 30px;
+  border: 3px solid white;
+  transition: .5s;
+}
+
+#body #buttons .tile:hover{
+  width: 300px;
+  height: 65px;
+  border-radius: 30px;
+  border: 3px solid #333333;
+  background-color: #333333;
+  transition: .5s;
+  cursor: pointer;
+}
+
+#body #buttons .tile h1{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12pt;
+  color: white;
+  position: relative;
+  top: 16px;
+  left: 35px;
+}
 
 /* END BODY */
 
@@ -143,4 +179,13 @@ footer .footertext{
   text-decoration: none;
   font-size: 9pt;
   color: #999999;
+}
+
+/* Dependancies */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }

@@ -23,7 +23,7 @@ app.use(session({
   saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
-    dbName: 'Amongsus',
+    dbName: 'SessionLocker',
     autoRemove: 'native'
   }),
   cookie: { 

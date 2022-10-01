@@ -7,4 +7,21 @@ $.get('/user-obj', user => {
   $('#body #stats #minted').html(`Cryptos Minted | ${user.artist.length}`)
   $('#body #stats #joined').html(`Date Joined | ${new Date(user.created).toDateString()}`)
   $('#body #stats img').attr('src', `data:image/png;base64,${user.pfp}`)
+  $('#header #profile img').attr('src', `data:image/png;base64,${user.pfp}`)
+})
+
+$('header #logo').click(e => {
+  window.location.href = "/"
+})
+
+$('#body #buttons #wallet').click(e => {
+  window.location.href = "/wallet"
+})
+
+$('#body #buttons #market').click(e => {
+  window.location.href = "/market"
+})
+
+$('#body #buttons #create').click(e => {
+  window.location.href = "/create"
 })

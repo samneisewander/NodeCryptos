@@ -37,6 +37,7 @@ header #logo{
   padding: 10px 15px 10px 20px;
   border-radius: 50px;
   background-color: white;
+  cursor: pointer;
 }
 
 header #logo img{

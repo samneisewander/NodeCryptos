@@ -1,3 +1,5 @@
+/*
+
 let can = document.querySelector("#artwork")
 c  = can.getContext('2d')
 let cellSize = 20
@@ -14,7 +16,7 @@ let grabbing = false
 let chue = bars[0].getContext('2d')
 let csat = bars[1].getContext('2d')
 let clight = bars[2].getContext('2d')
-
+*/
 
 //Color picker library for future use
 /*
@@ -53,6 +55,7 @@ pickr.on('save', (e) => {
   pickr.addSwatch(pickr.getColor().toRGBA().toString())
 })*/
 
+/*
 for(let h = 0; h < 360; h++){
   chue.beginPath()
   chue.rect(h*300/360,0,300/360,40)
@@ -318,3 +321,4 @@ function submit(){
     contentType: "application/json; charset=utf-8"
   })
 }
+*/

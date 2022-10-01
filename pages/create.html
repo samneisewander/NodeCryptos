@@ -1,95 +1,149 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Crypto Comets!</title>
-    <link href="/pages/create.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <header>
-      <div class="logo1 logo">crypto</div><div class="logo2 logo">COMETS</div>
-      <p>Just for fun. No affliation with <a href="https://www.larvalabs.com/cryptopunks">CryptoPunks</a>.</p>
-    </header>
-    <div class="color-picker"></div>
-    <section class="wrapper">
-      <section  class="sideBar">
-        <canvas class="bar" id="hue"></canvas>
-        <canvas class="bar" id="sat"></canvas>
-        <canvas class="bar" id="lightness"></canvas>
-      </section>
-      <section class="sideBar">
-        <div class="tool" id="previewColor"></div>
-        <div class="tool" id="paintbrush">🖌</div>
-        <div class="tool" id="dropper">💧</div>
-        <!--<div class="tool" id="redo">⃞</div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Crypto Comets!</title>
+  <link href="/pages/create.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+
+  <header>
+    <div id="logo">
+      <img src="assets/pixel logo.svg">
+      <div>Crypto Comets</div>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/market">Market</a>
+      <a href="/wallet">Wallet</a>
+      <a href="/create" id="current">Create</a>
+    </nav>
+    <div id="profile">
+      <img src="assets/example.jpeg">
+    </div>
+  </header>
+
+  <div id="body">
+    <div id="container">
+      <canvas id="artwork" height=480 width=480></canvas>
+      <div id="picker">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <a href="#" class="footertext">Contact Form</a>
+    <span class="footertext">|</span>
+    <a href="https://youtu.be/0iv6-csRBBI?t=11" class="footertext" target="_blank">Pricavy Policy</a>
+    <span class="footertext">|</span>
+    <a href="#" class="footertext">Stats For Nerds</a>
+  </footer>
+  <!-- 
+<header>
+    <div class="logo1 logo">crypto</div>
+    <div class="logo2 logo">COMETS</div>
+    <p>Just for fun. No affliation with <a href="https://www.larvalabs.com/cryptopunks">CryptoPunks</a>.</p>
+  </header>
+  <div class="color-picker"></div>
+  <section class="wrapper">
+    <section class="sideBar">
+      <canvas class="bar" id="hue"></canvas>
+      <canvas class="bar" id="sat"></canvas>
+      <canvas class="bar" id="lightness"></canvas>
+    </section>
+    <section class="sideBar">
+      <div class="tool" id="previewColor"></div>
+      <div class="tool" id="paintbrush">🖌</div>
+      <div class="tool" id="dropper">💧</div>
+
+   -->
+
+  <!--<div class="tool" id="redo">⃞</div>
         <div class="tool" id="undo">↶</div>
         <div class="tool" id="redo">↷</div>
         <div class="tool" id="undo">&larr;</div>
         <div class="tool" id="undo">&uarr;</div>
         <div class="tool" id="undo">&rarr;</div>
         <div class="tool" id="undo">&darr;</div>-->
-      </section class="sideBar">
-      <section id="recentColors" class="sideBar">
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-      </section>
-      <section class="sideBar">
-        <button class="button" onclick="submit()">Submit</button>
-        <div class="button" id="save">Save Data</div>
-        <div class="button" id="load">Load Data</div>
-        <div class="button" id="saveimage">Save Raster</div>
-        <div class="button" id="savevector">Save Vector</div>
-        <div class="button" id="clear">Clear</div>
-      </section>
+
+  <!-- 
+
+</section class="sideBar">
+    <section id="recentColors" class="sideBar">
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
     </section>
-    <canvas id="artwork" height=480 width=480></canvas>
-    <section id="instructions">
-      <h3>Base Humanoid Guidelines</h3>
-      <ul>
-        <li>No background color</li>
-        <li>Neck is about 5px wide: 1 for each side, 3 for skin</li>
-        <li>Head is about 10-12px wide</li>
-        <li>Chin starts about 2px from bottom</li>
-        <li>male head is about 17px tall, female head is about 15px</li>
-        <li>eyes are about 2x2 pixels</li>
-        <li>male nose is about 2px, female nose is about 1px</li>
-        <li>mouth is about 3px</li>
-        <li><a href="https://www.larvalabs.com/cryptopunks/attributes">All CryptoPunk Types and Attributes</a></li>
-      </ul>
-      <img src="/assets/demopunk.png" class="examplePunk" alt="Punk 4143" tooltip="Punk 4143" width=300>
-      <img src="/assets/demopunk2.png" class="examplePunk" alt="Punk Anon" width=300>
+    <section class="sideBar">
+      <button class="button" onclick="submit()">Submit</button>
+      <div class="button" id="save">Save Data</div>
+      <div class="button" id="load">Load Data</div>
+      <div class="button" id="saveimage">Save Raster</div>
+      <div class="button" id="savevector">Save Vector</div>
+      <div class="button" id="clear">Clear</div>
     </section>
-    <br>
-    <br>
-    <iframe width="768" height="432" src="https://www.youtube.com/embed/-YGNtNlY1xs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-    <script src="/scripts/create.js"></script>
-    <br>
-    <div id="output"></div>
-  </body>
+  </section>
+  <canvas id="artwork" height=480 width=480></canvas>
+  <section id="instructions">
+    <h3>Base Humanoid Guidelines</h3>
+    <ul>
+      <li>No background color</li>
+      <li>Neck is about 5px wide: 1 for each side, 3 for skin</li>
+      <li>Head is about 10-12px wide</li>
+      <li>Chin starts about 2px from bottom</li>
+      <li>male head is about 17px tall, female head is about 15px</li>
+      <li>eyes are about 2x2 pixels</li>
+      <li>male nose is about 2px, female nose is about 1px</li>
+      <li>mouth is about 3px</li>
+      <li><a href="https://www.larvalabs.com/cryptopunks/attributes">All CryptoPunk Types and Attributes</a></li>
+    </ul>
+    <img src="/assets/demopunk.png" class="examplePunk" alt="Punk 4143" tooltip="Punk 4143" width=300>
+    <img src="/assets/demopunk2.png" class="examplePunk" alt="Punk Anon" width=300>
+  </section>
+  <br>
+  <br>
+  <iframe width="768" height="432" src="https://www.youtube.com/embed/-YGNtNlY1xs" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+         -->
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+  <script src="/scripts/create.js"></script>
+  <br>
+  <div id="output"></div>
+</body>
+
 </html>

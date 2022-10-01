@@ -1,3 +1,132 @@
+/* Dependancies */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Press+Start+2P&display=swap');
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+  ;
+  color: white;
+}
+
+/*HEADER*/
+body{
+  margin: 0px;
+}
+
+header{
+  background-color: #333333;
+  width: auto;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+header #logo{
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px 10px 20px;
+  border-radius: 50px;
+  background-color: white;
+  cursor: pointer;
+}
+
+header #logo img{
+  width: 30px;
+  height: 30px;
+}
+
+header #logo div{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10pt;
+  color: black;
+}
+
+header nav{
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+header nav a{
+  color: white;
+  border: 2px solid transparent;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12pt;
+  text-decoration: none;
+  transition: .2s;
+}
+
+header nav a:hover{
+  border-bottom: 2px solid white;
+  transition: .2s
+}
+
+header nav #current{
+  border-bottom: 2px solid rgb(0, 0, 180);
+}
+
+header #profile{
+  width: 250px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+}
+
+header #profile img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+/* Body */
+#body{
+  width: auto;
+  min-height: calc(100vh - 218px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background-color: #060E23;
+  padding: 30px 0px;
+}
+
+/* FOOTER */
+footer{
+  width: auto;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 24px;
+  justify-content: center;
+  align-items: center;
+  background-color: #333333;
+}
+
+footer .footertext{
+  font-family: 'Noto Sans', sans-serif;
+  text-decoration: none;
+  font-size: 9pt;
+  color: #999999;
+}
+
+/* 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 body{
   text-align: center;
@@ -65,3 +194,5 @@ body{
 .pcr-button{
   display:none;
 }
+*/
+

@@ -1,6 +1,15 @@
-/*nothing loads lmfao*/
-
+/* Dependancies */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Press+Start+2P&display=swap');
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+  ;
+  color: white;
+}
+
 /*HEADER*/
 body{
   margin: 0px;
@@ -9,7 +18,7 @@ body{
 header{
   background-color: #333333;
   width: auto;
-  height: fit-content;
+  height: 70px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,9 +61,20 @@ header nav{
 
 header nav a{
   color: white;
+  border: 2px solid transparent;
   font-family: 'Noto Sans', sans-serif;
   font-size: 12pt;
   text-decoration: none;
+  transition: .2s;
+}
+
+header nav a:hover{
+  border-bottom: 2px solid white;
+  transition: .2s
+}
+
+header nav #current{
+  border-bottom: 2px solid rgb(0, 0, 180);
 }
 
 header #profile{
@@ -76,7 +96,7 @@ header #profile img{
 /*BODY*/
 #body{
   width: auto;
-  height: auto;
+  min-height: calc(100vh - 218px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,12 +180,16 @@ header #profile img{
   left: 35px;
 }
 
-/* END BODY */
+#body #buttons .tile .material-symbols-outlined{
+  position: relative;
+  top: -16px;
+  left: 250px;
+}
 
 /* FOOTER */
 footer{
   width: auto;
-  height: auto;
+  height: 20px;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -174,18 +198,10 @@ footer{
   align-items: center;
   background-color: #333333;
 }
+
 footer .footertext{
   font-family: 'Noto Sans', sans-serif;
   text-decoration: none;
   font-size: 9pt;
   color: #999999;
-}
-
-/* Dependancies */
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
 }

@@ -8,6 +8,10 @@
   <link href="/pages/create.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 
 <body>
@@ -30,9 +34,20 @@
 
   <div id="body">
     <div id="container">
-      <canvas id="artwork" height=480 width=480></canvas>
-      <div id="picker">
-
+      <div id="canvas-container">
+        <canvas id="artwork" height=480 width=480></canvas>
+      </div>
+      <div id="sidebar">
+        <div id="pickr"></div>
+        <div id="switches">
+          <span id="dropper" class="material-symbols-outlined disable-select">colorize</span>
+          <span id="toggle-grid" class="material-symbols-outlined disable-select">grid_on</span>
+          <span id="delete" class="material-symbols-outlined disable-select tooltip">delete</span>
+        </div>
+        <div id="buttons">
+          <div id="save" class="button">Save Progress</div>
+          <div id="mint" class="button">Mint Crypto</div>
+        </div>
       </div>
     </div>
   </div>
@@ -139,7 +154,8 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css" />
+  <!-- 'monolith' theme -->
   <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
   <script src="/scripts/create.js"></script>
   <br>

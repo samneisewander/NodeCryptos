@@ -128,8 +128,6 @@ saveBtn.addEventListener('click', e => {
     data: JSON.stringify({ data: data }),
     dataType: "json",
     contentType: "application/json; charset=utf-8"
-  }).then(err => {
-    throw err
   })
 })
 
@@ -168,10 +166,6 @@ artwork.addEventListener('contextmenu', e => {
   requestAnimationFrame(draw)
 })
 
-
-
-
-
 function clearData() {
   for (let col = 0; col < dims; col++) {
     for (let row = 0; row < dims; row++) {
@@ -181,9 +175,34 @@ function clearData() {
   draw()
 }
 
+function download() {
+  gridActive = false
+  draw()
+  window.open(artwork.toDataURL('image/png'))
+    var a  = document.createElement('a');
+    a.href = artwork.toDataURL('png');
+    a.download = 'image.png';
+    a.click()
+}
+
+function submit(){
+  gridActive = false
+  draw()
+  let name = prompt('Enter the name of your cryptoCOMET')
+  $.ajax ({
+    url: '/submit',
+    type: "POST",
+    data: JSON.stringify({"name": name, "dat": data , "png": artwork.toDataURL('image/png')}),
+    dataType: "json",
+    contentType: "application/json; charset=utf-8"
+  })
+}
+
 //Initial Draw to Canvas
-$.get('/artwork').then(result => {
-  console.log(result)
+$.get('/artwork').then((result) => {
+  if(result == null) return
+  data = result
+  draw()
 })
 
 draw()

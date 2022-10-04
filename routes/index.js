@@ -59,6 +59,7 @@ router.get('/artwork', protect, (req, res) => {
         if (user.currentProjectData !== []) {
             res.send(user.currentProjectData)
         }
+        else res.send(null)
     })
 })
 
@@ -367,6 +368,7 @@ router.post('/artwork', protect, (req, res) => {
             user.currentProjectData = req.body.data
             user.save()
         })
+    res.sendStatus(200)
 })
 
 module.exports = router

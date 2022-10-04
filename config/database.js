@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     offersOut: Array, //pending offers this person has made
     offersOld: Array, //old offer events i guess
     pfp: String, //profile picture; base64 encoded png
-    swatches: Array //swatches this user has used before
+    currentProjectData: Array //Pixel color data for user's last saved project
 })
 const cryptoSchema = new mongoose.Schema({
     //need to comment this shizzle up

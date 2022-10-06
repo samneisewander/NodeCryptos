@@ -53,6 +53,16 @@ router.get('/create', protect, (req, res) => {
     res.sendFile(path.join(__dirname, '../pages/create.html'))
 })
 
+router.get('/market', protect, (req, res) => {
+    if (debug) console.log('get/market')
+    res.sendFile(path.join(__dirname, '../pages/market.html'))
+})
+
+router.get('/wallet', protect, (req, res) => {
+    if (debug) console.log('get/wallet')
+    res.sendFile(path.join(__dirname, '../pages/wallet.html'))
+})
+
 router.get('/artwork', protect, (req, res) => {
     if (debug) console.log('get/artwork')
     User.findById(req.user._id).then(user => {

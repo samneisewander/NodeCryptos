@@ -11,12 +11,12 @@
 }
 
 .disable-select {
-  user-select: none; /* supported by Chrome and Opera */
- -webkit-user-select: none; /* Safari */
- -khtml-user-select: none; /* Konqueror HTML */
- -moz-user-select: none; /* Firefox */
- -ms-user-select: none; /* Internet Explorer/Edge */
-}
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+  }
 
 /*HEADER*/
 body{
@@ -114,86 +114,6 @@ header #profile img{
   gap: 30px;
   background-color: #060E23;
   padding: 30px 0px;
-}
-
-#body #stats{
-  width: 980px;
-  height: 300px;
-  background-color: #333333;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
-  gap: 60px;
-}
-
-#body #stats img{
-  width: 200px;
-  height: 200px;
-  border-radius: 100%;
-  margin-left: 50px;
-}
-
-#body #stats #container{
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-#body #stats #container h1{
-  font-size: 25px;
-  font-family: 'Press Start 2P', cursive;
-  color: white;
-}
-
-#body #stats #container .stat{
-  font-size: 12pt;
-  color: white;
-  font-family: 'Noto Sans', sans-serif;
-}
-
-#body #buttons{
-  width: 980px;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-#body #buttons .tile{
-  width: 300px;
-  height: 65px;
-  border-radius: 30px;
-  border: 3px solid white;
-  transition: .5s;
-}
-
-#body #buttons .tile:hover{
-  width: 300px;
-  height: 65px;
-  border-radius: 30px;
-  border: 3px solid #333333;
-  background-color: #333333;
-  transition: .5s;
-  cursor: pointer;
-}
-
-#body #buttons .tile h1{
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12pt;
-  color: white;
-  position: relative;
-  top: 16px;
-  left: 35px;
-}
-
-#body #buttons .tile .material-symbols-outlined{
-  position: relative;
-  top: -16px;
-  left: 250px;
 }
 
 /* FOOTER */

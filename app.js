@@ -27,7 +27,7 @@ app.use(session({
     autoRemove: 'native'
   }),
   cookie: { 
-    maxAge: 1000 * 60 * 60
+    maxAge: 1000 * 60 * 60 * 24 * 7 //1 week
   }
 }))
 app.use(flash())

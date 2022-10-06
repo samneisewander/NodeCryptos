@@ -121,15 +121,9 @@ document.addEventListener('keydown', e => {
 
 //Button Listeners
 const saveBtn = document.querySelector('#body #container #sidebar #buttons #save')
-saveBtn.addEventListener('click', e => {
-  $.ajax({
-    url: '/artwork',
-    type: "POST",
-    data: JSON.stringify({ data: data }),
-    dataType: "json",
-    contentType: "application/json; charset=utf-8"
-  })
-})
+saveBtn.addEventListener('click', e => { save() })
+const mintBtn = document.querySelector('#body #container #sidebar #buttons #mint')
+mintBtn.addEventListener('click', e => { submit() })
 
 //Canvas Listeners
 artwork.addEventListener('mousedown', e => {
@@ -148,6 +142,7 @@ artwork.addEventListener('mousemove', e => {
   requestAnimationFrame(draw)
 })
 artwork.addEventListener('mouseleave', e => {
+  dragging = false
   highlight = null
   requestAnimationFrame(draw)
 })
@@ -186,6 +181,7 @@ function download() {
 }
 
 function submit(){
+  let gridState = gridActive
   gridActive = false
   draw()
   let name = prompt('Enter the name of your cryptoCOMET')
@@ -195,6 +191,22 @@ function submit(){
     data: JSON.stringify({"name": name, "dat": data , "png": artwork.toDataURL('image/png')}),
     dataType: "json",
     contentType: "application/json; charset=utf-8"
+  })
+  clearData()
+  save()
+  gridActive = gridState
+  draw()
+}
+
+function save(){
+  $.ajax({
+    url: '/artwork',
+    type: "POST",
+    data: JSON.stringify({ data: data }),
+    dataType: "json",
+    contentType: "application/json; charset=utf-8"
+  }).then(result => {
+    console.log('Saved')
   })
 }
 

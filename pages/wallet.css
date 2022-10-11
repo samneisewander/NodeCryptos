@@ -1,6 +1,6 @@
 /* Dependancies */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Press+Start+2P&display=swap');
-.material-symbols-outlined {
+.material-symbols-rounded {
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -110,7 +110,7 @@ header #profile img{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: top;
   gap: 30px;
   background-color: #060E23;
   padding: 30px 0px;
@@ -120,10 +120,9 @@ header #profile img{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   height: fit-content;
   width: 700px;
-  background-color: aqua;
 }
 
 #body #header h1{
@@ -137,6 +136,132 @@ header #profile img{
   font-family: 'Press Start 2P', cursive;
   font-size: 10pt;
 }
+
+#body #header #filter{
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+/* Tiles */
+#body #tiles{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 800px;
+  height: fit-content;
+  justify-content: center;
+  gap: 20px
+}
+
+#body #tiles #tile{
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  position: relative;
+  width: 240px;
+  height: 240px;
+  box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+
+#body #tiles #tile img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#body #tiles #tile #name{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#body #tiles #tile #value{
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  color:rgb(76, 207, 76);
+}
+
+#body #tiles #tile .material-symbols-rounded{
+  font-size: 40px;
+  position: absolute;
+  top: calc(120px - (40px/2));
+  left: calc(120px - (40px/2));
+}
+
+/* Overlay */
+#overlay{
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+#overlay #container{
+  position: relative;
+  flex-direction: column;
+  width: 700px;
+  height: 400px;
+  background-color: #333333;
+  border-radius: 25px;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  padding: 15px;
+}
+
+#overlay #container #close{
+  position: absolute;
+  top: 15px;
+  left: 680px;
+  width: fit-content;
+  height: fit-content;
+  font-size: 15pt;
+  transition: .5s;
+  border: 2px solid white;
+  border-radius: 100%;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+#overlay #container #close:hover{
+  transition: .5s;
+  color: red;
+  border-color: red;
+}
+
+#overlay #container #art{
+  width: 240px;
+  height: 240px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #060E23;
+  border-radius: 25px;
+  box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.25);
+}
+
+#overlay #container #stats{
+  position: absolute;
+  top: 15px;
+  left: 400px;
+
+}
+
+#overlay #container #stats .title{
+  color: rgb(255, 0, 0);
+  font-size: 8pt;
+}
+
+
 /* FOOTER */
 footer{
   width: auto;

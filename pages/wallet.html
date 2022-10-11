@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width">
   <title>Crypto Comets!</title>
   <link href="/pages/wallet.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -29,13 +31,47 @@
   <!--Body-->
   <div id="body">
     <div id="header">
-      <div id="filter">Filter</div>
+      <!-- Get something custom from codepen when you actually include filtering feature -->
+      <select name="filter" id="filter" placeholder="Filter">
+        <option value="Freshman">Value</option>
+        <option value="Sophmore">Date Minted</option>
+      </select>
       <h1>Wallet</h1>
-      <div id="balance">$4600</div>
+      <div id="balance" class="count"></div>
     </div>
     <div id="tiles">
-      <div class="tile"></div>
     </div>
+  </div>
+
+  <div id="overlay" class="disable-select">
+    <div id="container">
+      <span id="close" class="material-symbols-rounded">close</span>
+      <img id="art">
+      <div id="stats">
+        <div id="nameTitle" class="title">Name:</div>
+        <div id="name" class="value"></div>
+  
+        <div id="valueTitle" class="title">Value:</div>
+        <div id="value" class="value"></div>
+  
+        <div id="createdTitle" class="title">Created:</div>
+        <div id="created" class="value"></div>
+  
+        <div id="artistTitle" class="title">Artist:</div>
+        <div id="artist" class="value"></div>
+  
+        <div id="tradesTitle" class="title">Trades:</div>
+        <div id="trades" class="value"></div>
+      </div>
+      <div id="events">
+        <div class="tile">
+          <span id="info">Trade Txt</span>
+          <span class="material-symbols-rounded">done</span>
+          <span class="material-symbols-rounded">close</span>
+        </div>
+      </div>
+
+    </div>  
   </div>
 
   <!-- Footer -->
@@ -51,4 +87,5 @@
     crossorigin="anonymous"></script>
   <script src="/scripts/wallet.js"></script>
 </body>
+
 </html>

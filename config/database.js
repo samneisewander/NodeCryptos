@@ -30,15 +30,18 @@ const cryptoSchema = new mongoose.Schema({
     //need to comment this shizzle up
     approved: Boolean,
     name: String,
-    created: Date,
-    artist: String,
+    created: Date, //date this thingy was minted
+    artist: String, //username of artist
+    artistId: String,
     grade: String,
     dat: Object,
     png: String,
-    owner: String,
+    owner: String, //username of owner
+    ownerId: String,
     value: Number,
-    events: Array,
-    eventsOld: Array
+    events: Array, //active events 
+    eventsOld: Array, //
+    trades: Number //number of times this crypto has been traded
 })
 
 mongoose.model('User', userSchema)

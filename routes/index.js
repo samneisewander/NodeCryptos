@@ -4,6 +4,8 @@ const passport = require('passport')
 const genPassword = require('../lib/passwordUtils').genPassword
 const protect = require('../lib/protect').protect
 const connection = require('../config/database')
+const { query } = require('express')
+const { resolve } = require('path')
 const User = connection.models.User
 const Crypto = connection.models.Crypto
 
@@ -29,7 +31,7 @@ router.get('/login', (req, res) => {
 router.get('/cryptos', (req, res) => {
     if (debug) console.log('get/cryptos')
     Crypto.find({ approved: true }, (err, results) => {
-        if (err) res.sendStatus(500)
+        if (err) res.sendStatus(500); return;
         res.send(results)
     })
 })
@@ -45,7 +47,6 @@ router.get('/approve', protect, (req, res) => {
     if (debug) console.log('get/approve')
     if (req.user.admin) res.sendFile(path.join(__dirname, '../pages/approve.html'))
     else res.sendStatus(403)
-
 })
 
 router.get('/create', protect, (req, res) => {
@@ -132,10 +133,11 @@ router.post('/submit', protect, (req, res) => {
         name: req.body.name,
         artist: req.user.username,
         artistId: req.user._id,
+        created: Date.now(),
         grade: req.user.grade,
         dat: req.body.dat,
         png: req.body.png,
-        owner: null,
+        trades: 0,
         value: 0,
         events: []
     })
@@ -188,6 +190,7 @@ router.post('/approve', protect, (req, res) => {
                             }).then(crypto => {
                                 crypto.approved = true
                                 crypto.owner = result.username
+                                crypto.ownerId = result._id
                                 result.owner.push(crypto._id)
                                 crypto.save()
                                 result.save()
@@ -379,6 +382,73 @@ router.post('/artwork', protect, (req, res) => {
             user.save()
         })
     res.sendStatus(200)
+})
+
+router.post('/query', protect, (req, res) => {
+    //needs a type, filter, and items. finds a document using type and filter, then returns obj with items requested. will not return obj with params in the 'banned queries' (for security)
+    if (debug) console.log('get/query')
+    let bannedQueries = ['hash', 'salt']
+    switch (req.body.type) {
+        case 'user':
+            User.findOne(req.body.filter, (err, results) => {
+                if (err) { res.sendStatus(404); return; }
+                let resObj = {}
+                req.body.items.forEach(item => {
+                    if (bannedQueries.includes(item)) return
+                    resObj[item] = results[item]
+                })
+                res.send(resObj)
+            })
+            break
+        case 'crypto':
+            Crypto.findOne(req.body.filter, (err, results) => {
+                if (err) { res.sendStatus(404); return; }
+                let resObj = {}
+                req.body.items.forEach(item => {
+                    if (bannedQueries.includes(item)) return
+                    resObj[item] = results[item]
+                })
+                res.send(resObj)
+            })
+    }
+})
+
+router.post('/batch-query', protect, (req, res) => {
+    //take an array of queries and iterates the query script over it. returns array of results
+
+    //SOLUTION: for loops with async code inside them will iterate without 'finishing' the tasks in order. Problematic when trying to populate an array with several async db queries and then returning the whole finished array afterwards. Fixed by making the resArr a promise and awaiting async queries before returning final value
+    if (debug) console.log('get/query')
+    let bannedQueries = ['hash', 'salt']
+
+    new Promise(async (resolve) => {
+        let resArr = []
+        for (const query of req.body.batch) {
+            let resObj = {}
+            switch (query.type) {
+                case 'user':
+                    const user = User.findOne(query.filter) // find user
+                    if (!user) { resArr.push(null); break; } //error handling
+                    query.items.forEach(item => {
+                        if (bannedQueries.includes(item)) return //secures private data
+                        if (user[item] == null) console.warn(`Unsuccessful Query: post/batch-query, User ${item}`)
+                        resObj[item] = user[item] //fill out obj params
+                    })
+                    resArr.push(resObj) //push obj to res list
+                    break
+                case 'crypto':
+                    const crypto = await Crypto.findOne(query.filter) //pretty much the same but for other schema
+                    if (!crypto) { resArr.push(null); break; }
+                    query.items.forEach(item => {
+                        if (bannedQueries.includes(item)) return
+                        if (crypto[item] == null) console.warn(`Unsuccessful Query: post/batch-query, Crypto ${item}`)
+                        resObj[item] = crypto[item]
+                    })
+                    resArr.push(resObj)
+                    break
+            }
+        }
+        resolve(resArr)
+    }).then((resArr) => res.send(resArr))
 })
 
 module.exports = router

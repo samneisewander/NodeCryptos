@@ -203,6 +203,7 @@ header #profile img{
   bottom: 0;
   background-color: rgba(0,0,0,0.5); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  backdrop-filter: blur(10px);
 }
 
 #overlay #container{
@@ -210,11 +211,12 @@ header #profile img{
   flex-direction: column;
   width: 700px;
   height: 400px;
-  background-color: #333333;
   border-radius: 25px;
+  border: 2px solid white;
   font-family: 'Press Start 2P', cursive;
   color: white;
   padding: 15px;
+  
 }
 
 #overlay #container #close{
@@ -238,29 +240,134 @@ header #profile img{
   border-color: red;
 }
 
-#overlay #container #art{
-  width: 240px;
-  height: 240px;
+#overlay #container #art {
+  width: 200px;
+  height: 200px;
   position: absolute;
   top: 15px;
   left: 15px;
   background-color: #060E23;
-  border-radius: 25px;
+  border-radius: 10px;
   box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.25);
 }
 
-#overlay #container #stats{
+#overlay #container #stats {
   position: absolute;
-  top: 15px;
-  left: 400px;
-
+  top: 30px;
+  left: 240px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 30px;
 }
 
-#overlay #container #stats .title{
+#overlay #container #stats .item{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#overlay #container #stats .item .title{
   color: rgb(255, 0, 0);
-  font-size: 8pt;
+  font-size: 11pt;
 }
 
+#overlay #container #stats .item .value{
+  font-size: 13pt;
+}
+
+#overlay #container #stats #createdItem{
+  grid-column: 1 / -1;
+}
+
+#overlay #container #eventsTitle {
+  position: relative;
+  top: 225px;
+  left: 0px;
+  font-size: 15pt;
+}
+
+#overlay #container #events {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  top: 235px;
+  left: 0px;
+  width: 100%;
+  height: fit-content;
+}
+
+#overlay #container #events .tile {
+  border: 1px solid white;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+#overlay #container #events .tile #buttons{
+  display: flex;
+  gap: 5px;
+}
+
+#overlay #container #events .tile #buttons #done{
+  width: fit-content;
+  height: fit-content;
+  font-size: 10pt;
+  border: 2px solid rgb(76, 207, 76);
+  color: rgb(76, 207, 76);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px;
+  gap: 5px;
+  transition: .5s;
+}
+
+#overlay #container #events .tile #buttons #done .material-symbols-rounded{
+  color: inherit;
+}
+
+#overlay #container #events .tile #buttons #done:hover{
+  transition: .5s;
+  background-color: rgb(76, 207, 76);
+  border: 2px solid rgb(76, 207, 76);
+  color: white;
+  cursor: pointer;
+}
+
+#overlay #container #events .tile #buttons #close{
+  width: fit-content;
+  height: fit-content;
+  font-size: 10pt;
+  border: 2px solid red;
+  color: red;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px;
+  gap: 5px;
+  transition: .5s;
+  position: static;
+}
+
+#overlay #container #events .tile #buttons #close .material-symbols-rounded{
+  color: inherit;
+}
+
+#overlay #container #events .tile #buttons #close:hover{
+  transition: .5s;
+  background-color: red;
+  border: 2px solid red;
+  color: white;
+  cursor: pointer;
+}
 
 /* FOOTER */
 footer{

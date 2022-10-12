@@ -2,7 +2,7 @@ $.get('/user-obj', result => {
     let batch = []
     if (result == 'nopers no elpers') return
     result.owner.forEach(item => {
-        batch.push({ "type": 'crypto', "filter": { "_id": item }, "items": ['name', 'png', 'value', 'artist', 'trades', 'created'] })
+        batch.push({ "type": 'crypto', "filter": { "_id": item }, "items": ['name', 'png', 'value', 'artist', 'trades', 'created', 'events', 'eventsOld'] })
     })
     $.ajax({
         url: '/batch-query',
@@ -76,9 +76,64 @@ function createTile(item) {
 
 }
 
+function createOffer(item){
+    let events = document.querySelector('#overlay #container #events')
+    let tile = document.createElement('div')
+    let tradeString = document.createElement('span')
+    let btnContainer = document.createElement('div')
+    let doneDiv = document.createElement('div')
+    let doneIcon = document.createElement('span')
+    let closeDiv = document.createElement('div')
+    let closeIcon = document.createElement('span')
+
+    tile.classList.add('tile')
+    tile.appendChild(tradeString)
+    tile.appendChild(btnContainer)
+    tradeString.id = 'info'
+    tradeString.innerHTML = `\$${item.amount} from ${item.buyer}`
+    btnContainer.id = 'buttons'
+    btnContainer.appendChild(doneDiv)
+    btnContainer.appendChild(closeDiv)
+    doneDiv.id = 'done'
+    doneDiv.innerHTML = 'Accept'
+    doneDiv.appendChild(doneIcon)
+    doneIcon.classList.add('material-symbols-rounded')
+    doneIcon.innerHTML = 'done'
+    closeDiv.id = 'close'
+    closeDiv.innerHTML = 'Decline'
+    closeDiv.appendChild(closeIcon)
+    closeIcon.classList.add('material-symbols-rounded')
+    closeIcon.innerHTML = 'close'
+
+    doneDiv.addEventListener('click', () => {
+        $.ajax({
+            url: '/offer',
+            type: "POST",
+            data: JSON.stringify({ "type": "complete", "offerObj": item }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8"
+        }).then(() => {
+            events.removeChild(tile)
+        })
+    })
+
+    closeDiv.addEventListener('click', () => {
+        $.ajax({
+            url: '/offer',
+            type: "POST",
+            data: JSON.stringify({ "type": "reject", "offerObj": item }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8"
+        }).then(() => {
+            events.removeChild(tile)
+        })
+    })
+
+    events.appendChild(tile)
+}
+
 function showInspectOverlay(crypto) {
     //stats and image rendering
-    let overlay = document.querySelector('#overlay')
     let imgDiv = document.querySelector('#overlay #container img')
     let nameDiv = document.querySelector('#overlay #container #stats #name')
     let valueDiv = document.querySelector('#overlay #container #stats #value')
@@ -94,6 +149,7 @@ function showInspectOverlay(crypto) {
     artistDiv.innerHTML = crypto.artist
     tradesDiv.innerHTML = crypto.trades
 
+    crypto.events.forEach(item => createOffer(item))
 
     $("#overlay").css("display", "flex").hide().fadeIn()
     closeDiv.addEventListener('click', () => $("#overlay").fadeOut())

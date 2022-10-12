@@ -255,123 +255,138 @@ router.post('/approve', protect, (req, res) => {
 })
 
 router.post('/offer', protect, (req, res) => {
+    //type [create, reject, complete, delete]
+    //offerObj
+    //user, seller, amount, item
     if (debug) console.log('post/offer')
-    class Offer {
-        constructor(buyer, seller, amount, item) {
-            this.buyer = buyer
-            this.seller = seller
-            this.amount = amount
-            this.item = item
-            this.created = Date.now()
-            this.status = 'Pending'
-        }
-        reject() {
-            User.findOne({ username: buyer.username }).then(user => {
-                user.offersOut.forEach((offer, i) => {
-                    if (offer == this) offer.status = 'Rejected'
-                })
+    switch(req.body.type){
+        case 'create':
+            class Offer {
+                constructor(buyer, seller, amount, item) {
+                    this.buyer = buyer
+                    this.seller = seller
+                    this.amount = amount
+                    this.item = item
+                    this.created = Date.now()
+                    this.status = 'Pending'
+                }
+                reject() {
+                    User.findOne({ username: buyer.username }).then(user => {
+                        user.offersOut.forEach((offer, i) => {
+                            if (offer == this) offer.status = 'Rejected'
+                        })
+                        user.save()
+                    })
+                    User.findOne({ username: seller.username }).then(user => {
+                        user.offersIn.forEach((offer, i) => {
+                            if (offer == this) offer.status = 'Rejected'
+                        })
+                        user.save()
+                    })
+                    Crypto.findOne({ _id: item._id }).then(crypto => {
+                        crypto.events.forEach((event, i) => {
+                            if (event == this) event.status = 'Rejected'
+                        })
+                        crypto.save()
+                    })
+                }
+                complete() {
+                    User.findOne({ username: buyer.username }).then(user => {
+                        user.offersOut.forEach((offer, i) => {
+                            if (offer == this) {
+                                offer.status = 'Complete'
+                                user.offersOld.push(offer)
+                                user.offersOut.splice(i, 1)
+                            }
+                        })
+                        user.owner.push(this.item)
+                        user.save()
+                    })
+                    User.findOne({ username: seller.username }).then(user => {
+                        user.offersIn.forEach((offer, i) => {
+                            if (offer == this) {
+                                offer.status = 'Complete'
+                                user.offersOld.push(offer)
+                                user.offersIn.splice(i, 1)
+                            }
+                        })
+                        user.owner.splice(user.owner.indexOf(this.item), 1)
+                        user.save()
+                    })
+                    Crypto.findOne({ _id: item._id }).then(crypto => {
+                        crypto.events.forEach((event, i) => {
+                            if (event == this) {
+                                event.status = 'Complete'
+                                crypto.eventsOld.push(event)
+                                crypto.events.splice(i, 1)
+                            }
+                        })
+                        crypto.owner = this.buyer.username
+                        crypto.save()
+                    })
+                }
+                delete() {
+                    User.findOne({ username: buyer.username }).then(user => {
+                        user.offersOut.forEach((offer, i) => {
+                            if (offer == this) user.offersOut.splice(i, 1)
+                        })
+                        user.save()
+                    })
+                    User.findOne({ username: seller.username }).then(user => {
+                        user.offersIn.forEach((offer, i) => {
+                            if (offer == this) user.offersIn.splice(i, 1)
+                        })
+                        user.save()
+                    })
+                    Crypto.findOne({ _id: item._id }).then(crypto => {
+                        crypto.events.forEach((event, i) => {
+                            if (event == this) crypto.events.splice(i, 1)
+                        })
+                        crypto.save()
+                    })
+                }
+            }
+            let offer = new Offer(req.user, req.body.seller, req.body.amount, req.body.item)
+            let error = false
+            User.findOne({ username: req.user.username }).then((err, user) => {
+                if (err) {
+                    error = true
+                    return
+                }
+                user.offersOut.push(offer)
                 user.save()
             })
-            User.findOne({ username: seller.username }).then(user => {
-                user.offersIn.forEach((offer, i) => {
-                    if (offer == this) offer.status = 'Rejected'
-                })
+            User.findOne({ username: req.body.seller.username }).then((err, user) => {
+                if (err) {
+                    error = true
+                    return
+                }
+                user.offersIn.push(offer)
                 user.save()
             })
-            Crypto.findOne({ _id: item._id }).then(crypto => {
-                crypto.events.forEach((event, i) => {
-                    if (event == this) event.status = 'Rejected'
-                })
+            Crypto.findOne({ _id: req.body.item._id }).then((err, crypto) => {
+                if (err) {
+                    error = true
+                    return
+                }
+                crypto.events.push(offer)
                 crypto.save()
             })
-        }
-        complete() {
-            User.findOne({ username: buyer.username }).then(user => {
-                user.offersOut.forEach((offer, i) => {
-                    if (offer == this) {
-                        offer.status = 'Complete'
-                        user.offersOld.push(offer)
-                        user.offersOut.splice(i, 1)
-                    }
-                })
-                user.owner.push(this.item)
-                user.save()
-            })
-            User.findOne({ username: seller.username }).then(user => {
-                user.offersIn.forEach((offer, i) => {
-                    if (offer == this) {
-                        offer.status = 'Complete'
-                        user.offersOld.push(offer)
-                        user.offersIn.splice(i, 1)
-                    }
-                })
-                user.owner.splice(user.owner.indexOf(this.item), 1)
-                user.save()
-            })
-            Crypto.findOne({ _id: item._id }).then(crypto => {
-                crypto.events.forEach((event, i) => {
-                    if (event == this) {
-                        event.status = 'Complete'
-                        crypto.eventsOld.push(event)
-                        crypto.events.splice(i, 1)
-                    }
-                })
-                crypto.owner = this.buyer.username
-                crypto.save()
-            })
-        }
-        delete() {
-            User.findOne({ username: buyer.username }).then(user => {
-                user.offersOut.forEach((offer, i) => {
-                    if (offer == this) user.offersOut.splice(i, 1)
-                })
-                user.save()
-            })
-            User.findOne({ username: seller.username }).then(user => {
-                user.offersIn.forEach((offer, i) => {
-                    if (offer == this) user.offersIn.splice(i, 1)
-                })
-                user.save()
-            })
-            Crypto.findOne({ _id: item._id }).then(crypto => {
-                crypto.events.forEach((event, i) => {
-                    if (event == this) crypto.events.splice(i, 1)
-                })
-                crypto.save()
-            })
-        }
+            if (error) {
+                offer.delete()
+                res.send({ err: true })
+            }
+            else res.send({ err: false, offer: offer })
+            break
+        case 'complete':
+            req.body.offerObj.complete()
+            res.sendStatus(200)
+            break
+        case 'reject':
+            req.body.offerObj.reject()
+            res.sendStatus(200)
+            break
     }
-    let offer = new Offer(req.user, req.body.seller, req.body.amount, req.body.item)
-    let error = false
-    User.findOne({ username: req.user.username }).then((err, user) => {
-        if (err) {
-            error = true
-            return
-        }
-        user.offersOut.push(offer)
-        user.save()
-    })
-    User.findOne({ username: req.body.seller.username }).then((err, user) => {
-        if (err) {
-            error = true
-            return
-        }
-        user.offersIn.push(offer)
-        user.save()
-    })
-    Crypto.findOne({ _id: req.body.item._id }).then((err, crypto) => {
-        if (err) {
-            error = true
-            return
-        }
-        crypto.events.push(offer)
-        crypto.save()
-    })
-    if (error) {
-        offer.delete()
-        res.send({ err: true })
-    }
-    else res.send({ err: false, offer: offer })
 })
 
 router.post('/artwork', protect, (req, res) => {

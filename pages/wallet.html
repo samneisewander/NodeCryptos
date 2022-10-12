@@ -48,30 +48,39 @@
       <span id="close" class="material-symbols-rounded">close</span>
       <img id="art">
       <div id="stats">
-        <div id="nameTitle" class="title">Name:</div>
-        <div id="name" class="value"></div>
-  
-        <div id="valueTitle" class="title">Value:</div>
-        <div id="value" class="value"></div>
-  
-        <div id="createdTitle" class="title">Created:</div>
-        <div id="created" class="value"></div>
-  
-        <div id="artistTitle" class="title">Artist:</div>
-        <div id="artist" class="value"></div>
-  
-        <div id="tradesTitle" class="title">Trades:</div>
-        <div id="trades" class="value"></div>
+        <div class="item">
+          <div id="nameTitle" class="title">Name:</div>
+          <div id="name" class="value"></div>
+        </div>
+        <div class="item">
+          <div id="valueTitle" class="title">Value:</div>
+          <div id="value" class="value"></div>
+        </div>
+        <div class="item">
+          <div id="tradesTitle" class="title">Trades:</div>
+          <div id="trades" class="value"></div>
+        </div>
+        <div class="item">
+          <div id="artistTitle" class="title">Artist:</div>
+          <div id="artist" class="value"></div>
+        </div>
+        <div class="item" id="createdItem">
+          <div id="createdTitle" class="title">Created:</div>
+          <div id="created" class="value"></div>
+        </div>
       </div>
+      <span id="eventsTitle">Offers</span>
       <div id="events">
         <div class="tile">
           <span id="info">Trade Txt</span>
-          <span class="material-symbols-rounded">done</span>
-          <span class="material-symbols-rounded">close</span>
+          <div id="buttons">
+            <div id="done">Accept<span class="material-symbols-rounded">done</span></div>
+            <div id="close">Decline<span class="material-symbols-rounded">close</span></div>
+          </div>
         </div>
       </div>
 
-    </div>  
+    </div>
   </div>
 
   <!-- Footer -->

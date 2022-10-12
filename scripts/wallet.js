@@ -144,7 +144,7 @@ function showInspectOverlay(crypto) {
 
     imgDiv.src = crypto.png
     nameDiv.innerHTML = crypto.name
-    valueDiv.innerHTML = crypto.value
+    valueDiv.innerHTML = '$' + crypto.value
     createdDiv.innerHTML = new Date(crypto.created).toDateString()
     artistDiv.innerHTML = crypto.artist
     tradesDiv.innerHTML = crypto.trades

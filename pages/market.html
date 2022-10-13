@@ -12,9 +12,9 @@
   <!--Header-->
   <header>
     <a id="logo" href="/">
-        <img src="assets/pixel logo.svg">
-        <div class="disable-select">Crypto Comets</div>
-      </a>
+      <img src="assets/pixel logo.svg">
+      <div class="disable-select">Crypto Comets</div>
+    </a>
     <nav>
       <a href="/">Home</a>
       <a href="/market" id="current">Market</a>
@@ -28,7 +28,41 @@
 
   <!--Body-->
   <div id="body">
-    
+    <input type="text" id="search">
+    <title>Auction Floor</title>
+    <div id="auction-floor">
+      <div id="current">
+        <img id="art">
+        <div id="info">
+          <div id="container">
+            <span class="label" id="titleLabel">Title:</span>
+            <span class="value" id="title">Fauchi Ouchi</span>
+            <span class="label" id="artistLabel">Artist:</span>
+            <span class="value" id="artist">Raul Reyes</span>
+            <span class="label" id="mintedLabel">Date Minted:</span>
+            <span class="value" id="minted">Sep 22nd 2022</span>
+            <span class="label" id="highestLabel">Highest Bidder:</span>
+            <span class="value" id="highest">Logan Devine</span>
+          </div>
+          <span id="value">$5600</span>
+          <div id="bid">Bid!</div>
+        </div>
+      </div>
+      <div id="next">
+        <img id="art">
+        <span id="blurb">This Crypto will go up for auction when the timer expires.</span>
+        <span id="timer">00:00:00</span>
+      </div>
+    </div>
+    <title>Market</title>
+    <div id="market">
+      <div class="marquee-left">
+        
+      </div>
+      <div class="marquee-right">
+        
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -44,4 +78,5 @@
     crossorigin="anonymous"></script>
   <script src="/scripts/market.js"></script>
 </body>
+
 </html>

@@ -110,10 +110,26 @@ header #profile img{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 30px;
   background-color: #060E23;
   padding: 30px 0px;
+}
+
+#body #search{
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: transparent;
+  padding: 5px;
+  font-family: 'Noto Sans', sans-serif;
+  color: white;
+}
+
+#body #search:focus{
+  border: none;
+  border-bottom: 2px solid gold;
+  outline: none;
+  transition: .5s;
+  color: gold;
 }
 
 /* FOOTER */

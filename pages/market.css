@@ -209,17 +209,17 @@ h1{
   position: relative;
 }
 
-#body #auction-floor #current #info #container{
+#body #auction-floor #current #info #wrapper{
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-#body #auction-floor #current #info #container .label{
+#body #auction-floor #current #info #wrapper .label{
   font-size: 8pt;
 }
 
-#body #auction-floor #current #info #container .value{
+#body #auction-floor #current #info #wrapper .value{
   font-size: 12pt;
   margin-bottom: 8px;
 }

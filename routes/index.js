@@ -11,6 +11,15 @@ const Crypto = connection.models.Crypto
 
 let debug = false; //weird res header duplicate bug. dunno where its coming from but it happens on homepage redirect to login 
 
+//Initiallize Auction Queue
+let queue = []
+Crypto.find({ approved: true, owner: null }, results => {
+    if (results == null) return
+    for (result of results){
+        queue.push(result)
+    }
+})
+
 //GET Routes (unprotected)
 
 router.get('/register', (req, res) => {
@@ -177,27 +186,8 @@ router.post('/approve', protect, (req, res) => {
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
-                User.count().exec(function (err, count) {
-                    User.findOne().skip(Math.floor(Math.random() * count)).exec(
-                        function (err, result) {
-                            // result is a random user document (i hope)
-                            Crypto.findOne({
-                                approved: false,
-                                name: req.body.crypto.name,
-                                artist: req.body.crypto.artist,
-                                grade: req.body.crypto.grade,
-                                dat: req.body.crypto.dat
-                            }).then(crypto => {
-                                crypto.approved = true
-                                crypto.owner = result.username
-                                crypto.ownerId = result._id
-                                result.owner.push(crypto._id)
-                                crypto.save()
-                                result.save()
-                            })
-                            console.log('[CRYPTO APPROVED] ' + req.body.crypto.name, 'Awared to: ' + result.username)
-                            res.sendStatus(200)
-                        })
+                Crypto.findByIdAndUpdate({
+                    
                 })
             }
             else {

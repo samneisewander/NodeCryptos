@@ -416,11 +416,12 @@ router.post('/batch-query', protect, (req, res) => {
 })
 
 //Initiallize Auction Queue
-//make this work pls
+
 setTimeout(() => {
-    Crypto.find({ approved: { $not: null }}, (err, docs) => {
-        console.log(docs)
-        console.log(err)
+    //works now
+    Crypto.find({ approved: { $ne: null }}, (err, docs) => {
+        if (err) throw err
+        docs.forEach((doc) => {  })
     })
 }, 5000)
 

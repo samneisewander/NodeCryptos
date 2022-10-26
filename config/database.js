@@ -2,17 +2,15 @@ const mongoose = require('mongoose')
 
 require('dotenv').config()
 
-mongoose.connect(process.env.MONGODB_URI)
-    .then((conn, err) =>{
-        if (err) console.log('[mongoose] Connection failure.', err)
-        else console.log('[mongoose] Connection successful!')
-    })
+mongoose.connect(process.env.MONGODB_URI).then((conn, err) => {
+    if (err) console.log('[mongoose] Connection failure.', err)
+    else console.log('[mongoose] Connection successful!')
+})
 
 const userSchema = new mongoose.Schema({
     //HEY! Really important that you don't rename these once the site is live. If you do, any user records will still have their metadata recorded under the OLD NAMES. You'll have to find a way to update the docs to the new schema if you decide to rename stuff. So. Good luck.
-    approved: Boolean, //whether or not this user has been manually permitted to use the site by an admin.
+    approved: Date, //whether or not this user has been manually permitted to use the site by an admin. Null if no, Date obj if yes
     admin: Boolean, //whether or not this user has elevated permissions for certain pages.
-    created: Date, //encoded in a really weird format. needs a special function to format for display.
     hash: String, //cryptography stuff
     salt: String, //cryptography stuff
     username: String, //display name
@@ -28,9 +26,8 @@ const userSchema = new mongoose.Schema({
 })
 const cryptoSchema = new mongoose.Schema({
     //need to comment this shizzle up
-    approved: Boolean,
+    approved: Date, //Date this crypto was approved
     name: String,
-    created: Date, //date this thingy was minted
     artist: String, //username of artist
     artistId: String,
     grade: String,

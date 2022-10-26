@@ -11,14 +11,7 @@ const Crypto = connection.models.Crypto
 
 let debug = false; //weird res header duplicate bug. dunno where its coming from but it happens on homepage redirect to login 
 
-//Initiallize Auction Queue
-let queue = []
-Crypto.find({ approved: true, owner: null }, results => {
-    if (results == null) return
-    for (result of results){
-        queue.push(result)
-    }
-})
+
 
 //GET Routes (unprotected)
 
@@ -133,16 +126,13 @@ router.post('/username', (req, res) => {
         })
 })
 
-
 //POST Routes (protected)
 router.post('/submit', protect, (req, res) => {
-    if (debug) console.log('post/submit')
     const newCrypto = new Crypto({
-        approved: false,
+        approved: null,
         name: req.body.name,
         artist: req.user.username,
         artistId: req.user._id,
-        created: Date.now(),
         grade: req.user.grade,
         dat: req.body.dat,
         png: req.body.png,
@@ -182,61 +172,30 @@ router.post('/filter', protect, (req, res) => {
 })
 
 router.post('/approve', protect, (req, res) => {
-    if (debug) console.log('post/approve')
+    //Body obj: { type: 'user' or 'crypto', user or crypto: user or crypto, approved: bool }
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
-                Crypto.findByIdAndUpdate({
-                    
-                })
+                Crypto.findOneAndUpdate({ _id: req.body.crypto._id }, { approved: Date.now() })
+                //add crypto to queue
             }
             else {
-                Crypto.findOneAndDelete({
-                    approved: false,
-                    name: req.body.crypto.name,
-                    artist: req.body.crypto.artist,
-                    grade: req.body.crypto.grade,
-                    dat: req.body.crypto.dat
-                }, (err) => {
-                    if (!err) {
-                        console.log('[CRYPTO DENIED] ' + req.body.crypto.name)
-                        res.sendStatus(200)
-                    }
+                Crypto.findOneAndDelete({ _id: req.body.crypto._id }, (err) => {
+                    if (!err) res.sendStatus(200)
                     else res.sendStatus(500)
                 })
             }
             break
         case 'user':
             if (req.body.approved) {
-                User.findOneAndUpdate({
-                    approved: false,
-                    username: req.body.user.username,
-                    grade: req.body.user.grade,
-                    hash: req.body.user.hash,
-                    salt: req.body.user.salt
-                },
-                    {
-                        approved: true
-                    }, (err) => {
-                        if (!err) {
-                            console.log('[USER APPROVED] ' + req.body.user.username)
-                            res.sendStatus(200)
-                        }
-                        else res.sendStatus(500)
-                    })
+                User.findOneAndUpdate({ _id: req.body.user._id }, { approved: Date.now() }, (err) => {
+                    if (!err) res.sendStatus(200)
+                    else res.sendStatus(500)
+                })
             }
             else {
-                User.findOneAndDelete({
-                    approved: false,
-                    username: req.body.user.username,
-                    grade: req.body.user.grade,
-                    hash: req.body.user.hash,
-                    salt: req.body.user.salt
-                }, (err) => {
-                    if (!err) {
-                        console.log('[USER DENIED] ' + req.body.user.username)
-                        res.sendStatus(200)
-                    }
+                User.findOneAndDelete({ _id: req.body.user._id }, (err) => {
+                    if (!err) res.sendStatus(200)
                     else res.sendStatus(500)
                 })
             }
@@ -249,7 +208,7 @@ router.post('/offer', protect, (req, res) => {
     //offerObj
     //user, seller, amount, item
     if (debug) console.log('post/offer')
-    switch(req.body.type){
+    switch (req.body.type) {
         case 'create':
             class Offer {
                 constructor(buyer, seller, amount, item) {
@@ -455,5 +414,15 @@ router.post('/batch-query', protect, (req, res) => {
         resolve(resArr)
     }).then((resArr) => res.send(resArr))
 })
+
+//Initiallize Auction Queue
+//make this work pls
+setTimeout(() => {
+    Crypto.find({ approved: { $not: null }}, (err, docs) => {
+        console.log(docs)
+        console.log(err)
+    })
+}, 5000)
+
 
 module.exports = router

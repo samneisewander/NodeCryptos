@@ -9,7 +9,7 @@ passport.use(new LocalStrategy({ passReqToCallback: true }, (req, username, pass
     User.findOne({ username: username })
         .then((user) => {
             if (!user) return done(null, false, { message: 'no-user'})
-            if (!user.approved) return done(null, false, { message: 'not-approved' })
+            if (new Date(user.approved).valueOf() === 0) return done(null, false, { message: 'not-approved' })
             if (validPassword(password, user.hash, user.salt)) return done(null, user)
             else return done(null, false, { message: 'bad-password' })
         })

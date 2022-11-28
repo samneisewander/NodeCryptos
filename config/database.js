@@ -40,8 +40,18 @@ const cryptoSchema = new mongoose.Schema({
     eventsOld: Array, //
     trades: Number //number of times this crypto has been traded
 })
+const auctionSchema = new mongoose.Schema({
+    created: Date,
+    expires: Date,
+    crypto: Object,
+    value: Number,
+    winner: Object
+})
+
+
 
 mongoose.model('User', userSchema)
 mongoose.model('Crypto', cryptoSchema)
+mongoose.model('Auction', auctionSchema)
 
 module.exports = mongoose.connection

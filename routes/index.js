@@ -9,6 +9,7 @@ const { resolve } = require('path')
 require('dotenv').config()
 const User = connection.models.User
 const Crypto = connection.models.Crypto
+const Auction = connection.models.Auction
 
 let debug = false; //weird res header duplicate bug. dunno where its coming from but it happens on homepage redirect to login 
 
@@ -189,7 +190,9 @@ router.post('/approve', protect, (req, res) => {
         case 'user':
             if (req.body.approved) {
                 User.findOneAndUpdate({ _id: req.body.user._id }, { approved: Date.now() }, (err) => {
-                    if (!err) res.sendStatus(200)
+                    if (!err) {
+                        res.sendStatus(200)
+                    }
                     else res.sendStatus(500)
                 })
             }
@@ -417,14 +420,21 @@ router.post('/batch-query', protect, (req, res) => {
 
 //Initiallize Auction Queue
 let auctionQueue = []
-let auctionEnd = Date.now()
+let auctionEnd  = new Date()
+auctionEnd.setDate(auctionEnd.getDate() + 1)
+auctionEnd.setHours(20)
+auctionEnd.setMinutes(0)
+auctionEnd.setMilliseconds(0)
+let timeRemaining = auctionEnd - Date.now()
 Crypto.find({ approved: { $ne: null }}, (err, docs) => {
     if (err) throw err
     docs.forEach((doc) => { auctionQueue.push(doc) })
 })
 
-let loop = () => {
-    
-}
+
+
+//server starts
+//auction queue created
+//callback set for next action loop
 
 module.exports = router

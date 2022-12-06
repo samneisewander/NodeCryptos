@@ -45,7 +45,8 @@ const auctionSchema = new mongoose.Schema({
     expires: Date,
     crypto: Object,
     value: Number,
-    winner: Object
+    winner: Object,
+    open: Boolean
 })
 
 

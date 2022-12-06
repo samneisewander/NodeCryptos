@@ -190,9 +190,7 @@ router.post('/approve', protect, (req, res) => {
         case 'user':
             if (req.body.approved) {
                 User.findOneAndUpdate({ _id: req.body.user._id }, { approved: Date.now() }, (err) => {
-                    if (!err) {
-                        res.sendStatus(200)
-                    }
+                    if (!err) res.sendStatus(200)
                     else res.sendStatus(500)
                 })
             }
@@ -418,18 +416,31 @@ router.post('/batch-query', protect, (req, res) => {
     }).then((resArr) => res.send(resArr))
 })
 
-//Initiallize Auction Queue
-let auctionQueue = []
-let auctionEnd  = new Date()
-auctionEnd.setDate(auctionEnd.getDate() + 1)
-auctionEnd.setHours(20)
-auctionEnd.setMinutes(0)
-auctionEnd.setMilliseconds(0)
-let timeRemaining = auctionEnd - Date.now()
-Crypto.find({ approved: { $ne: null }}, (err, docs) => {
+//Initiallize Previous Auction
+let auction
+Auction.findOne({ open: true }, (err, result) => {
     if (err) throw err
-    docs.forEach((doc) => { auctionQueue.push(doc) })
+    if (!result) auction = initAuction
+    else auction = result
 })
+
+function initAuction(){
+    let auctionEnd  = new Date()
+    auctionEnd.setDate(auctionEnd.getDate() + 1)
+    auctionEnd.setHours(20)
+    auctionEnd.setMinutes(0)
+    auctionEnd.setMilliseconds(0)
+
+    Crypto.findOne({ approved: { $ne: null }}, (err, result) => {
+
+    })
+
+    const newAuction = new Auction({
+        created: Date.now(),
+        expires: auctionEnd,
+        
+    })
+}
 
 
 

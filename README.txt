@@ -1,16 +1,16 @@
-hey ho sambone i bet you're looking for some shit right now. hope i can help you out!
+//Dependencies
+To serve this app, you need to install the required npm modules using npm install in a CLI
 
-//.env//
-okay so here's the environment variables you need to have:
-MONGODB_URI //you need to get this from the mondgo db website but you probably remember how that works
-SECRET //literally make this shit up its just a password or something idk
+//MongoDB
+To serve this app, you also need to deploy a MongoDB database. You can either configure it
+to run in the cloud using MongoDB Atlas or run it locally using the comminuty server.
+I'm assuming the configuration will be slightly different based on which you choose.
 
-
-alright coolio schmoolio hope you figured it out if you didnt use your big huge girthy brain and then write what you did in here ok thx by
-
-
+//Environment Variables//
+MONGODB_URI // The URI from either a Mongo Atlas deployment or a local deployment.
+SECRET // Not quite sure what this does. Just generate a random string of characters and use that.
 
 //BUGS//
  - If you don't input a name on mint crypto button, itll post a cryptro with name "null". It should cancel the mint instead
  - If your cookie expires and you try to access a protected page, it throws an error about sending headers. Benign, but should be cleaned up
- - Fix the fucking routes please lol
+ - The routing architecture is bad

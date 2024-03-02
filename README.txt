@@ -7,6 +7,9 @@ to run in the cloud using MongoDB Atlas or run it locally using the comminuty se
 I'm assuming the configuration will be slightly different based on which you choose.
 
 //Environment Variables//
+To serve this app, you must create a .env file and populate it with the folling environment variables.
+Note that you also much have the dotenv npm package installed. This should be a dependency already.
+
 MONGODB_URI // The URI from either a Mongo Atlas deployment or a local deployment.
 SECRET // Not quite sure what this does. Just generate a random string of characters and use that.
 
